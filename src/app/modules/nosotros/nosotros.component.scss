@@ -1,0 +1,67 @@
+.nosotros__imagen {
+    width:300px; /* ajusta el ancho según sea necesario */
+    height: 300px; /* ajusta la altura según sea necesario */
+    background-image: url(../../imagenes/Logo.jpg);
+    background-size: cover; /* para cubrir todo el espacio del div */
+    /* otros estilos según sea necesario */
+    margin-right: 5%;
+}
+.center-text {
+    text-align: center; /* Alinea el texto al centro */
+}
+.contenedor {
+    max-width: 120rem;
+    margin: 0 auto;
+    
+}
+.nosotros {
+    display: flex; /* Utiliza flexbox para controlar la disposición */
+}
+
+.nosotros__contenido {
+  
+    padding-left: 5%;
+    flex: 1; /* El contenido ocupa el espacio restante */
+    padding-right: 20px; /* Espacio entre el texto y la imagen */
+}
+.bloques {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    
+}
+.bloque {
+    text-align: center;
+}
+.contenedor-p{
+    display: flex; /* Establece un contenedor flexible */
+    align-items: center; /* Alinea verticalmente los elementos */
+}
+.bloque__titulo {
+    margin: 0;
+}
+
+.icono-dinero{
+    width:60px; /* ajusta el ancho según sea necesario */
+    height: 60px; /* ajusta la altura según sea necesario */
+    background-image: url(../../imagenes/icons8-bolsa-de-dinero-100.png);
+    background-size: cover; /* para cubrir todo el espacio del div */
+    /* otros estilos según sea necesario */
+    margin-right: 5%;
+}
+.envio{
+    width:60px; /* ajusta el ancho según sea necesario */
+    height: 60px; /* ajusta la altura según sea necesario */
+    background-image: url(../../imagenes/icons8-entrega-72.png);
+    background-size: cover; /* para cubrir todo el espacio del div */
+    /* otros estilos según sea necesario */
+    margin-right: 5%
+}
+.calidad{
+    width:60px; /* ajusta el ancho según sea necesario */
+    height: 60px; /* ajusta la altura según sea necesario */
+    background-image: url(../../imagenes/icons8-garantía-96.png);
+    background-size: cover; /* para cubrir todo el espacio del div */
+    /* otros estilos según sea necesario */
+    margin-right: 5%
+}

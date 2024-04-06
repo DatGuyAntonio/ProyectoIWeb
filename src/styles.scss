@@ -1,0 +1,65 @@
+/* You can add global styles to this file, and also import other style files */
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+footer {
+  
+    bottom: 0;
+    width: 100%;
+    background-color: #333;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+  }
+
+  .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+  
+  }
+  .container-header {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex; /* Establece un contenedor flexible */
+    align-items: center;
+  }
+  
+  /* Estilos del encabezado */
+  header {
+  
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #333;
+    padding: 20px 0;
+    display: flex; /* Establece un contenedor flexible */
+    align-items: center;
+    transition: top 0.3s
+  }
+
+  
+  .logo {
+    width: 80px; /* Ajusta el ancho según sea necesario */
+    height: 100px; /* Ajusta la altura según sea necesario */
+    background-image: url(./app/imagenes/Logo-removebg-preview.png);
+    background-size: contain; /* Para que la imagen se ajuste al tamaño del div */
+    background-repeat: no-repeat;
+  }
+  
+  nav ul {
+    list-style-type: none;
+    padding: 10px;
+  }
+  
+  nav ul li {
+    display: inline;
+    margin-right: 20px;
+  }
+  
+  nav ul li a {
+    color: #fff;
+    text-decoration: none;
+  }
+  

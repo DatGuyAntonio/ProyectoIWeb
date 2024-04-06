@@ -1,0 +1,80 @@
+<header>
+  <div class="container-header">
+
+    <div class="logo">
+
+    </div>
+    <nav>
+      <ul>
+        <ul>
+          <li><a href="#" class="pi pi-home" style="font-size: 1.5rem"></a></li>
+          <li><a href="../nosotros">Nosotros</a></li>
+          <li><a href="../contacto">Contacto</a></li>
+        </ul>
+
+      </ul>
+    </nav>
+
+  </div>
+</header>
+
+<form [formGroup]="miFormulario" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="username">Nombre de usuario:</label>
+    <input type="text" id="username" formControlName="username" placeholder="Ingrese su nombre de usuario">
+  </div>
+  <div>
+    <label for="password">Contraseña:</label>
+    <input type="password" id="password" formControlName="password" placeholder="Ingrese su contraseña">
+  </div>
+  <div class="button-container">
+
+    <p-button type="submit" class="login-button t-texto" [disabled]="miFormulario.invalid" [rounded]="true"
+      severity="success">ininciar session</p-button>
+    <p-button class="create-account-button" (click)="showDialog()" severity="secondary" [rounded]="true">Crear
+      cuenta</p-button>
+
+  </div>
+</form>
+
+
+
+<footer class="anclar">
+  <div class="container">
+    <p>&copy; 2024 WakaMuebles. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+
+  <p-dialog header="Crear Cuenta" [(visible)]="visible" [modal]="true" [style]="{ width: '25vw' }" [draggable]="false" [resizable]="false" [closable]="false">
+
+  <div class="flex flex-column gap-2">
+    <label for="username">Nombre:</label>
+    <input style="max-width: 100%;" type="text" pInputText />
+
+  </div>
+  <div class="flex flex-column gap-2">
+    <label for="username">Correo:</label>
+    <input style="max-width: 100%;" type="text" pInputText />
+
+  </div>
+  <div class="flex flex-column gap-2">
+    <label for="username">contraseña:</label>
+    <p-password [toggleMask]="true"></p-password>
+  </div>
+  <div class="flex flex-column gap-2">
+    <label for="username">Valida la contraseña:</label>
+    <p-password [toggleMask]="true"></p-password>
+  </div>
+  <div class="contenedor-cliente">
+    <p-checkbox></p-checkbox>
+    <label for="ny">Cuenta Empresarial</label>
+  </div>
+  <ng-template pTemplate="footer">
+    <div class="botones-fotter">
+      <p-button class="create-account-button" label="Crear cuenta" [raised]="true" severity="success"
+        size="small"></p-button>
+      <p-button label="Cancelar" [raised]="true" severity="danger" (click)="visible=false" size="small"></p-button>
+    </div>
+  </ng-template>
+</p-dialog>

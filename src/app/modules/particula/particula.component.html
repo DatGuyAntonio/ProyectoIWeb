@@ -1,0 +1,91 @@
+<header>
+    <div class="container-header" >
+  
+      <div class="logo">
+  
+      </div>
+      <h1 class="titulo">WakaMuebles</h1>
+      <nav>
+        <ul>
+          <ul>
+            <li><a href="particula/camas">Inicio</a></li>
+            <li><a href="../contacto">Contacto</a></li>
+          </ul>
+  
+        </ul>
+      </nav>
+      <div>
+    </div>
+    </div>
+    <!-- <p-button (click)="showDialog('left')" icon="pi pi-external-link" label="Show"></p-button> -->
+    <!-- <div  style="display: flex; margin-right: .2%; background-color: aqua; max-width:200rem;"> -->
+     
+       
+        <p-sidebar [(visible)]="sidebarVisible2" position="right">
+        
+       
+          <div style="display: flex;  margin-top: 10%;">
+            <i class="pi pi-user" style="font-size: 1.5rem"></i>
+            <i style="margin-left: 5px;"> Informacion del usuario</i>
+          </div>
+
+          <div style="display: flex;  margin-top: 10%;">
+            <i class="pi pi-truck" style="font-size: 1.5rem"></i>
+            <i style="margin-left: 5px;"> direccion de envio</i>
+          </div>
+
+          
+          <div style="display: flex; margin-top: 10%;">
+            <i class="pi pi-shopping-cart" style="font-size: 1.5rem"></i>
+            <i style="margin-left: 5px;">Carrito  de compras</i>
+          </div>
+
+          <div style="display: flex;  margin-top: 10%;">
+            <i class="pi pi-wrench" style="font-size: 1.5rem"></i>
+            <i style="margin-left: 5px;">Solicitar ayuda</i>
+          </div>
+
+
+          <div style="display:flex ;  margin-top: 10%;">
+            <div class="logOut"></div>
+            <i style="margin-left: 5px;">Cerrar Sesion </i>
+          </div>
+
+        </p-sidebar>
+        <p-button type="button" class="mr-2" (click)="sidebarVisible2 = true" icon="pi pi-bars" class="margen" severity="secondary"></p-button>
+
+        <!-- <p-button class="t-boton margen" (click)="showDialogUser('right')" type="submit" size="small"  > <span class="pi pi-user"></span> </p-button> -->
+
+    <!-- </div> -->
+ 
+  </header>
+
+  <p-tabMenu [scrollable]="true" [model]="items" [activeItem]="activeItem" (activeItemChange)="onActiveItemChange($event)"></p-tabMenu>
+
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+  
+
+
+
+
+  <p-dialog header="Header" [(visible)]="visible"  [position]="'left'" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+    <p class="m-0">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+</p-dialog>
+
+<p-dialog header="Header" [(visible)]="visibleUser"  [position]="'right'" [modal]="true" [style]="{ width: '50vw' }" [draggable]="false" [resizable]="false">
+    <p class="m-0">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    </p>
+</p-dialog>
+
+<footer style="margin-top: 5%;">
+    <div class="container">
+      <p>&copy; 2024 WakaMuebles. Todos los derechos reservados.</p>
+    </div>
+  </footer>

@@ -1,0 +1,49 @@
+
+
+/* Estilos del banner principal */
+.banner {
+  background-image: url('../../imagenes/FondoBlanco.jpg');
+  /* background-size: cover; */
+  color: #fff;
+  text-align: center;
+  padding: 150px 0;
+}
+
+.banner h1 {
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+
+.banner p {
+  font-size: 1.5em;
+  margin-bottom: 30px;
+}
+/* 
+.btn {
+  display: inline-block;
+  background-color: #ff6600;
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.btn:hover {
+  background-color: #cc5500;
+} */
+
+/* Estilos del pie de página */
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.colorTexto{
+  color: black;
+  color: black;
+  -webkit-text-stroke-width: .1px;
+  -webkit-text-stroke-color: white; /* Para navegadores basados en WebKit */
+
+}

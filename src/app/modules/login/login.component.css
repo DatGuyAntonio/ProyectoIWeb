@@ -1,0 +1,118 @@
+
+
+.anclar{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+}
+/* Estilos del banner principal */
+.banner {
+  background-image: url('../../imagenes/FondoBlanco.jpg');
+  /* background-size: cover; */
+  color: #fff;
+  text-align: center;
+  padding: 150px 0;
+}
+
+.banner h1 {
+  font-size: 3em;
+  margin-bottom: 20px;
+}
+
+.banner p {
+  font-size: 1.5em;
+  margin-bottom: 30px;
+}
+/* 
+.btn {
+  display: inline-block;
+  background-color: #ff6600;
+  color: #fff;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.btn:hover {
+  background-color: #cc5500;
+} */
+
+/* Estilos del pie de página */
+footer {
+  background-color: #333;
+  color: #fff;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.colorTexto{
+  color: black;
+  color: black;
+  -webkit-text-stroke-width: .1px;
+  -webkit-text-stroke-color: white; /* Para navegadores basados en WebKit */
+
+}
+
+
+/*-------------------------------------------------------------------------------------------*/
+form {
+  max-width: 300px;
+  margin: 3% auto ;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+div {
+  margin-bottom: 15px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 90%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+
+
+
+
+.button-container {
+  display: flex;
+}
+
+p-button {
+  display: flex;
+  margin-right: 10px; /* Ajusta el margen entre los botones según tu preferencia */
+}
+.login-button, .create-account-button {
+  height: 40px; /* Ajusta la altura según sea necesario */
+  /* Otros estilos CSS según sea necesario */
+}
+.login-button {
+  height: 40px; /* Ajusta la altura según sea necesario */
+ ; /* Color de fondo para el botón de inicio de sesión */
+  /* Otros estilos CSS según sea necesario */
+}
+
+.create-account-button {
+  height: 40px; 
+  
+}
+
+.contenedor-cliente{
+  display: flex;
+}
+
+.botones-fotter{
+  display: flex;
+    justify-content: space-between;
+}
