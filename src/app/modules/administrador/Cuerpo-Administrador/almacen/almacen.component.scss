@@ -1,0 +1,25 @@
+.productos, .agregar-producto {
+    margin-bottom: 20px;
+  }
+  
+  .agregar-producto label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .agregar-producto input, .agregar-producto select {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  
+  .agregar-producto button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .agregar-producto button:hover {
+    background-color: #0056b3;
+  }

@@ -1,0 +1,12 @@
+<div class="messages-container">
+    <div class="message" *ngFor="let message of messages">
+      <div class="message-header">
+        <span class="message-sender">{{ message.nombre }}</span>
+        <span class="message-contact">{{ message.telefono }} | {{ message.correo }}</span>
+        <span class="message-date">{{ message.fecha | date }}</span>
+      </div>
+      <div class="message-content">
+        <p>{{ message.cuerpo }}</p>
+      </div>
+    </div>
+  </div>

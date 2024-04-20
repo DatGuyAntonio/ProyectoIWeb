@@ -1,0 +1,23 @@
+<h1>Categoria de muebles</h1>
+    <div class="card">
+      <p-tabView>
+        <p-tabPanel *ngFor="let categoria of categorias" [header]="categoria.nombre">
+            <div *ngFor="let producto of categoria.productos">
+                <div>{{ producto.nombre }}</div>
+            </div>
+        </p-tabPanel>
+    </p-tabView>
+  </div>
+
+
+  <div class="agregar-producto">
+    <h2>Agregar Nuevo Producto</h2>
+    <label for="nombre">Nombre:</label>
+    <input type="text" id="nombre" >
+    <label for="categoria">Categoría:</label>
+    <select id="categoria">
+      <option *ngFor="let categoria of categorias" [value]="categoria.nombre">{{ categoria.nombre }}</option>
+    </select>
+    <button (click)="agregarProducto()">Agregar Producto</button>
+  </div>
+  

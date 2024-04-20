@@ -9,4 +9,4 @@ import { CommonModule } from '@angular/common';
     CommonModule
   ]
 })
-export class ParticularRoutingModuleModule { }
+export class MesasCentroModule { }

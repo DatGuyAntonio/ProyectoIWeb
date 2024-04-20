@@ -1,0 +1,29 @@
+<div class="container">
+    <h1>Lista de Pedidos</h1>
+
+    <div class="grid-container">
+        <div class="card pedido" *ngFor="let pedido of pedidos">
+            <div class="pedido-header">
+                <h2>Pedido #{{ pedido.numero }}</h2>
+                <span [ngClass]="{'pendiente': pedido.estado === 'Pendiente', 'completado': pedido.estado === 'Completado', 'proceso': pedido.estado==='Proceso'}">{{ pedido.estado }}</span>
+            </div>
+            <p>Cliente: {{ pedido.cliente }}</p>
+            <p>Fecha: {{ pedido.fecha  }}</p>
+            <div class="pedido-productos">
+                <h3>Productos:</h3>
+                <div *ngFor="let producto of pedido.productos">
+                    <div>
+                      <p>Producto: {{ producto.nombre }}</p>
+                      <p>Precio: {{ producto.precio | currency }}</p>
+                      <p>Cantidad: {{ producto.cantidad }}</p>
+                    </div>
+            </div>
+            <p>Total: {{ pedido.total }}</p>
+            <div class="pedido-botones">
+                <button pButton type="button" icon="pi pi-pencil" label="Editar"></button>
+                <button pButton type="button" icon="pi pi-trash" class="p-button-danger" label="Eliminar"></button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>

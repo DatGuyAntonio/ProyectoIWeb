@@ -44,8 +44,8 @@ export class ParticulaComponent {
     { label: 'Camas' },
     { label: 'Mesas de noche' },
     { label: 'Armarios' },
-    { label: 'Escritorios y sillas de trabajo' },
-    { label: 'Sillas y sillones' },
+    { label: 'Escritorios' },
+    { label: 'Sillas' },
     { label: 'Mesas de centro' }
 ];
 activeItem: MenuItem | undefined;
@@ -77,18 +77,24 @@ cuerpo(label: string | undefined) {
       break;
     case 'Armarios':
       console.log('Se seleccionó la opción "Armarios"');
+      this.router.navigate(['particula', 'armario']);
       // Agrega aquí la lógica específica para la opción "Armarios"
       break;
-    case 'Escritorios y sillas de trabajo':
+    case 'Escritorios':
       console.log('Se seleccionó la opción "Escritorios y sillas de trabajo"');
+      this.router.navigate(['particula', 'escritorio']);
       // Agrega aquí la lógica específica para la opción "Escritorios y sillas de trabajo"
       break;
-    case 'Sillas y sillones':
+    case 'Sillas':
       console.log('Se seleccionó la opción "Sillas y sillones"');
+      this.router.navigate(['particula', 'sillas']);
+
       // Agrega aquí la lógica específica para la opción "Sillas y sillones"
       break;
     case 'Mesas de centro':
       console.log('Se seleccionó la opción "Mesas de centro"');
+      this.router.navigate(['particula', 'mesasCentro']);
+
       // Agrega aquí la lógica específica para la opción "Mesas de centro"
       break;
     default:

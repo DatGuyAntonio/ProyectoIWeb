@@ -63,3 +63,12 @@ footer {
     text-decoration: none;
   }
   
+  .titulo {
+    color: black; /* Color del texto */
+
+    text-shadow: 
+    0.5px 0.5px 0 white,
+    -0.5px 0.5px 0 white,
+    0.5px -0.5px 0 white,
+    -0.5px -0.5px 0 white;
+}

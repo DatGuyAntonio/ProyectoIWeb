@@ -1,0 +1,76 @@
+// .pedido {
+//     border: 1px solid #ccc;
+//     border-radius: 5px;
+//     padding: 10px;
+//     margin-bottom: 10px;
+// }
+// .pedido-header {
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     margin-bottom: 5px;
+// }
+// .pedido-productos {
+//     margin-bottom: 5px;
+// }
+
+.container {
+    margin: 20px;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.card {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.pedido-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+
+    h2 {
+        margin: 0;
+    }
+
+    .pendiente {
+        color: red;
+    }
+
+    .completado {
+        color: green;
+    }
+
+    .proceso {
+        color: blue;
+    }
+}
+
+.pedido-productos {
+    margin-bottom: 10px;
+
+    h3 {
+        margin: 0 0 5px;
+    }
+
+    ul {
+        padding-left: 20px;
+        list-style-type: disc;
+    }
+}
+
+.pedido-botones {
+    display: flex;
+    justify-content: space-between;
+
+    button {
+        margin-top: 10px;
+    }
+}
