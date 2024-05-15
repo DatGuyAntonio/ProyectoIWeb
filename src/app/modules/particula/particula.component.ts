@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { ButtonModule } from 'primeng/button'
 import { DialogModule } from 'primeng/dialog';
@@ -7,6 +7,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { FileUploadModule} from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
 import { Router } from '@angular/router';
+import { CarritoService } from '../../Services/Carrito/carrito.service';
 
 interface UploadEvent {
   originalEvent: Event;
@@ -22,16 +23,29 @@ interface UploadEvent {
             FileUploadModule,
             ToastModule],
   templateUrl: './particula.component.html',
-  styleUrl: './particula.component.scss'
+  styleUrl: './particula.component.scss',
 })
 export class ParticulaComponent {
+
+  isHeaderFixed = false; // Esta propiedad determina si el encabezado es fijo
+
+  @HostListener('window:scroll', ['$event'])
+  checkScroll() {
+    this.isHeaderFixed = window.pageYOffset > 200;
+  }
+  
   position: string = 'Left';
   visible: boolean = false;
   positionUser: string = 'Rigth';
   visibleUser: boolean = false;
   sidebarVisible2: boolean = false;
   messageService: any;
-  constructor(private router: Router) {}
+  constructor(private router: Router, private carritoService: CarritoService) {
+    this.carritoService.carritoActual.subscribe(mueblesCarrito => {
+      // Haz algo con mueblesCarrito
+      console.log(mueblesCarrito);
+    });
+  }
     showDialog(position: string) {
         this.position = position;
         this.visible = true;
@@ -40,69 +54,34 @@ export class ParticulaComponent {
       this.positionUser = positionUser;
       this.visibleUser = true;
   }
-  items: MenuItem[] = [
-    { label: 'Camas' },
-    { label: 'Mesas de noche' },
-    { label: 'Armarios' },
-    { label: 'Escritorios' },
-    { label: 'Sillas' },
-    { label: 'Mesas de centro' }
-];
-activeItem: MenuItem | undefined;
+ 
+
     ngOnInit() {
-        this.items ;
         
-          this.activeItem = this.items[0]; // Selecciona el primer item por defecto
-          this.router.navigate(['particula', 'camas']);
+          this.router.navigate(['particula', 'muebles']);
     }
-    onActiveItemChange(event: MenuItem) {
-      if (this.activeItem !== event) {
-        this.activeItem = event;
-        this.cuerpo(this.activeItem?.label);
-      }
-    }
+   
+    
 
     
   
-cuerpo(label: string | undefined) {
-  switch (label) {
-    case 'Camas':
-      console.log('Se seleccionó la opción "Camas"');
-      this.router.navigate(['particula', 'camas']); // Navegar a la ruta hija 'particula/camas'
-      break;
-    case 'Mesas de noche':
-      console.log('Se seleccionó la opción "Mesas de noche"');
-      this.router.navigate(['particula', 'mesasNoche']);
-      // Agrega aquí la lógica específica para la opción "Mesas de noche"
-      break;
-    case 'Armarios':
-      console.log('Se seleccionó la opción "Armarios"');
-      this.router.navigate(['particula', 'armario']);
-      // Agrega aquí la lógica específica para la opción "Armarios"
-      break;
-    case 'Escritorios':
-      console.log('Se seleccionó la opción "Escritorios y sillas de trabajo"');
-      this.router.navigate(['particula', 'escritorio']);
-      // Agrega aquí la lógica específica para la opción "Escritorios y sillas de trabajo"
-      break;
-    case 'Sillas':
-      console.log('Se seleccionó la opción "Sillas y sillones"');
-      this.router.navigate(['particula', 'sillas']);
-
-      // Agrega aquí la lógica específica para la opción "Sillas y sillones"
-      break;
-    case 'Mesas de centro':
-      console.log('Se seleccionó la opción "Mesas de centro"');
-      this.router.navigate(['particula', 'mesasCentro']);
-
-      // Agrega aquí la lógica específica para la opción "Mesas de centro"
-      break;
-    default:
-      console.log('No se reconoce la opción seleccionada');
-  }
-}
     onUpload(event: UploadEvent) {
       this.messageService.add({ severity: 'info', summary: 'Success', detail: 'File Uploaded with Basic Mode' });
+  }
+
+  visible2: boolean = false;
+
+  showDialog2() {
+
+      this.visible2 = true;
+  }
+
+
+  visible3: boolean = false;
+
+  showDialog3() {
+
+      this.visible3 = true;
   }
 
   

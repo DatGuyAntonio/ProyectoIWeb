@@ -15,16 +15,7 @@ export class AlmacenComponent {
 //     { nombre: 'Electrónica', productos: [{ nombre: 'Televisor', categoria: 'Electrónica' }, { nombre: 'Laptop', categoria: 'Electrónica' }] },
 //     { nombre: 'Muebles', productos: [{ nombre: 'Sofá', categoria: 'Muebles' }, { nombre: 'Mesa', categoria: 'Muebles' }] }
 // ];
-  
 
-  agregarProducto() {
-    // Aquí puedes agregar la lógica para guardar el nuevo producto
-    console.log('Nuevo producto:', this.nuevoProducto);
-    // Por simplicidad, solo lo mostramos por ahora
-    this.categorias.find(categoria => categoria.nombre === this.nuevoProducto.categoria)?.productos.push(this.nuevoProducto);
-    // Limpiamos el formulario después de agregar el producto
-    this.nuevoProducto = { nombre: '', categoria: '' };
-  }
 
   categorias: any[] = [
     {
@@ -37,7 +28,7 @@ export class AlmacenComponent {
     {
         nombre: 'Muebles',
         productos: [
-            { nombre: 'Sofá' },
+            { nombre: 'Sofá', precio:122, cantidad: 100, descripcion:'kjnkjnkkjnkjnknoiojoijojkm' },
             { nombre: 'Mesa' }
         ]
     }

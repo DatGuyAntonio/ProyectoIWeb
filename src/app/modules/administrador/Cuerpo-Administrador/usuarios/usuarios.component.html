@@ -12,12 +12,19 @@
         </ng-template>
         <ng-template pTemplate="body" let-rowData>
             <tr>
+                <td>{{ rowData.id }}</td>
                 <td>{{ rowData.nombre }}</td>
-                <td>{{ rowData.correo }}</td>
-                <td>{{ rowData.telefono }}</td>
-                <td>{{ rowData.rol }}</td>
-                <td>{{ rowData.direccion }}</td>
+                <td>{{ rowData.celular }}</td>
+                <td>{{ rowData.correo }}</td>    
+                <td *ngIf="rowData.rol === 'c'; else otherRole">
+                    Cliente
+                  </td>
+                  <ng-template #otherRole>
+                    <td>{{ rowData.rol }}</td>
+                  </ng-template>
+                  <td>{{rowData.domicilio.calle}}, {{rowData.domicilio.colonia}}, {{rowData.domicilio.cp}}, {{rowData.domicilio.num_Exterior}}</td>
                 <td>
+                
                     <div style="display: flex;">
                         <div style="margin-right: 1%;">
                             <p-button severity="info"  (click)="showDialog()" > <i class="pi pi-pencil"></i></p-button>

@@ -65,3 +65,32 @@
     /* otros estilos según sea necesario */
     margin-right: 5%
 }
+
+@media screen and (max-width: 768px) {
+    .bloques {
+      grid-template-columns: 1fr;
+    }
+  
+    .bloque {
+      margin-bottom: 2em;
+    }
+  }
+
+
+  @media screen and (max-width: 768px) {
+    .nosotros {
+        flex-direction: column; /* Cambia la dirección a columna */
+    }
+    .nosotros__imagen{
+        margin: auto;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .nosotros__contenido {
+        padding-left: 0; /* Elimina el padding */
+    }
+    .nosotros__imagen{
+        margin: auto;
+    }
+}

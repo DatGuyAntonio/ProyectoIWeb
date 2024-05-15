@@ -9,10 +9,14 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToastModule } from 'primeng/toast';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { HttpClientModule } from '@angular/common/http';
+import { ClienteService } from '../../../../Services/cliente/cliente.service';
 @Component({
   selector: 'app-usuarios',
   standalone: true,
-  imports: [TableModule,CommonModule, ButtonModule, DialogModule,DropdownModule,InputTextModule,ToastModule,ConfirmDialogModule],
+  imports: [TableModule,CommonModule, ButtonModule, DialogModule,DropdownModule,InputTextModule,ToastModule,ConfirmDialogModule,
+    HttpClientModule
+  ],
   providers: [ConfirmationService, MessageService],
   templateUrl: './usuarios.component.html',
   styleUrl: './usuarios.component.scss'
@@ -24,14 +28,16 @@ export class UsuariosComponent {
   usuariosFiltrados: any[] = [];
   cities:any[]=[]
   cols: any[] = [  // Definición de columnas de la tabla
+  { header: 'Id', field: 'id' },
   { header: 'Nombre', field: 'nombre' },
+  { header: 'Celular', field: 'celular' },
   { header: 'Correo', field: 'correo' },
-  { header: 'Teléfono', field: 'telefono' },
   { header: 'Rol', field: 'rol' },
-  { header: 'Dirección', field: 'direccion'}
+  { header: 'Direccion', field: 'direccion' },
+ 
 ];
 
-constructor(private confirmationService: ConfirmationService, private messageService: MessageService) {}
+constructor(private confirmationService: ConfirmationService, private messageService: MessageService, private clienteService: ClienteService) {}
   ngOnInit() {
    
 this.cargaUsuario();
@@ -45,23 +51,16 @@ this.cities = [
 
 
 cargaUsuario(){
-  this.usuarios = [
-    {
-      nombre: 'Juan',
-      correo: 'juan@example.com',
-      telefono: '1234567890',
-      rol: 'Administrador',
-      direccion: 'Calle Principal 123'
+  
+  this.clienteService.getTodos().subscribe(
+    data => {
+      this.usuarios = data;
+      console.log(this.usuarios)
     },
-    {
-      nombre: 'María',
-      correo: 'maria@example.com',
-      telefono: '9876543210',
-      rol: 'Usuario',
-      direccion: 'Avenida Secundaria 456'
-    },
-    // Puedes agregar más usuarios según sea necesario
-  ];
+    error => {
+      console.error('Error al obtener los datos:', error);
+    }
+  );
 }
 
 applyFilter(event: any, field: string) {

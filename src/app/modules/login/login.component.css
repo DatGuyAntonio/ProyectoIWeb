@@ -115,4 +115,40 @@ p-button {
 .botones-fotter{
   display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.botones-fotter p-button {
+  flex: 1 0 auto; /* Los botones pueden crecer y no encogerse, manteniendo su base auto */
+  margin: 0.5em; /* Añade margen alrededor de los botones */
+}
+
+.form-group {
+  margin-bottom: 1em;
+}
+
+.button-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.login-button, .create-account-button {
+  flex: 1;
+  margin: 0.5em;
+}
+
+@media screen and (max-width: 768px) {
+  .button-container {
+    flex-direction: column;
+  }
+
+  .login-button, .create-account-button {
+    flex: none;
+    width: 100%;
+  }
+
+  form{
+    margin-top: 5%;
+    margin-bottom: 30%;
+  }
 }

@@ -30,7 +30,7 @@
   <div class="button-container">
 
     <p-button type="submit" class="login-button t-texto" [disabled]="miFormulario.invalid" [rounded]="true"
-      severity="success">ininciar session</p-button>
+      severity="success" (click)="iniciarsecion()" >ininciar session</p-button>
     <p-button class="create-account-button" (click)="showDialog()" severity="secondary" [rounded]="true">Crear
       cuenta</p-button>
 
@@ -46,35 +46,37 @@
 </footer>
 
 
-  <p-dialog header="Crear Cuenta" [(visible)]="visible" [modal]="true" [style]="{ width: '25vw' }" [draggable]="false" [resizable]="false" [closable]="false">
-
+<p-dialog header="Crear Cuenta" [(visible)]="visible" [modal]="true" [style]="{ width: '25vw' }"      [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"  [draggable]="false" [resizable]="false" [closable]="false">
+<form [formGroup]="usuarioNuevo">
   <div class="flex flex-column gap-2">
     <label for="username">Nombre:</label>
-    <input style="max-width: 100%;" type="text" pInputText />
+    <input  formControlName="nombre" style="max-width: 100%;" type="text" pInputText />
 
   </div>
   <div class="flex flex-column gap-2">
     <label for="username">Correo:</label>
-    <input style="max-width: 100%;" type="text" pInputText />
+    <input  formControlName="correo" style="max-width: 100%;" type="text" pInputText />
 
   </div>
   <div class="flex flex-column gap-2">
     <label for="username">contraseña:</label>
-    <p-password [toggleMask]="true"></p-password>
+    <p-password   formControlName="contraseña" [toggleMask]="true"   [style]="{'width':'90%'}"  [inputStyle]="{'width':'100%'}" ></p-password>
+    <div *ngIf="usuarioNuevo.get('contraseña')?.touched && usuarioNuevo.get('contraseña')?.errors?.['required']" style="font-size: 0.8rem; color: red;">La contraseña es obligatoria.</div>
   </div>
   <div class="flex flex-column gap-2">
     <label for="username">Valida la contraseña:</label>
-    <p-password [toggleMask]="true"></p-password>
+    <p-password  formControlName="validarContraseña" [toggleMask]="true"  [style]="{'width':'90%'}"  [inputStyle]="{'width':'100%'}" [feedback]="false"></p-password>
+    <div *ngIf="usuarioNuevo.get('validarContraseña')?.touched &&usuarioNuevo.get('validarContraseña')?.errors?.['required']" style="font-size: 0.8rem; color: red;">Debe validar la contraseña.</div>
+    <div *ngIf="usuarioNuevo.get('contraseña')?.value !== usuarioNuevo.get('validarContraseña')?.value && usuarioNuevo.get('validarContraseña')?.touched" style="font-size: 0.8rem; color: red;">Las contraseñas no coinciden.</div>
   </div>
-  <div class="contenedor-cliente">
-    <p-checkbox></p-checkbox>
-    <label for="ny">Cuenta Empresarial</label>
-  </div>
+  <p style="font-size: 0.6rem;">Si acabas de crear una cuenta y necesitas una empresarial, envía un mensaje para solicitar el cambio.</p>
+</form>
   <ng-template pTemplate="footer">
     <div class="botones-fotter">
       <p-button class="create-account-button" label="Crear cuenta" [raised]="true" severity="success"
-        size="small"></p-button>
-      <p-button label="Cancelar" [raised]="true" severity="danger" (click)="visible=false" size="small"></p-button>
+      size="small" [disabled]="usuarioNuevo.invalid || usuarioNuevo.get('contraseña')?.value !== usuarioNuevo.get('validarContraseña')?.value" (click)="AgregarUsuario()"></p-button>
+
+      <p-button label="Cancelar" [raised]="true" severity="danger" (click)="cerrar()" size="small"></p-button>
     </div>
   </ng-template>
 </p-dialog>

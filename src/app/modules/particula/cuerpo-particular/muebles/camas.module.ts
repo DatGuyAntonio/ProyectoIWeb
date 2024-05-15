@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { DividerModule } from 'primeng/divider';
 
 
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule
+    CommonModule,
+    DividerModule
   ]
 })
-export class MesasCentroModule { }
+export class CamasModule { }

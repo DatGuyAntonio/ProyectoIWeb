@@ -4,13 +4,16 @@
         <p-tabPanel *ngFor="let categoria of categorias" [header]="categoria.nombre">
             <div *ngFor="let producto of categoria.productos">
                 <div>{{ producto.nombre }}</div>
+                <div>{{ producto.precio }}</div>
+                <div>{{ producto.cantidad }}</div>
+                <div>{{ producto.descripcion }}</div>
             </div>
         </p-tabPanel>
     </p-tabView>
   </div>
 
 
-  <div class="agregar-producto">
+  <!-- <div class="agregar-producto">
     <h2>Agregar Nuevo Producto</h2>
     <label for="nombre">Nombre:</label>
     <input type="text" id="nombre" >
@@ -20,4 +23,4 @@
     </select>
     <button (click)="agregarProducto()">Agregar Producto</button>
   </div>
-  
+   -->

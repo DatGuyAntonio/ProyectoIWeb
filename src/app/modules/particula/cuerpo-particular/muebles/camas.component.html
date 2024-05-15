@@ -1,0 +1,76 @@
+<div style="margin-bottom: 10%; background-color: rgb(243, 242, 242);">
+  <div class="container">
+    <p-panel header="Subir Imagen" [toggleable]="true" class="panel">
+      <div class="upload-container">
+        <p-fileUpload name="myfile[]" url="https://www.primefaces.org/cdn/api/upload.php" [multiple]="false" accept="image/*" (onSelect)="onFileSelected($event)">
+          <ng-template pTemplate="toolbar">
+            <div class="py-3">Subir 1 Imagen</div>
+          </ng-template>
+          <ng-template let-file pTemplate="file" let-i="index">
+            <div *ngIf="selectedImage" class="vista-previa">
+              <img [src]="selectedImage" alt="Vista previa de la imagen" class="preview-image">
+            </div>
+          </ng-template>
+        </p-fileUpload>
+      </div>       
+    </p-panel>
+  </div>
+  
+
+<hr>
+    
+<div class="divider-text">Camas</div>
+
+<hr>
+
+
+  
+
+
+<div class="grid">
+    
+    <div *ngFor="let producto of productos" class="producto">
+        <ng-container *ngIf="producto.categoria === 'cama' || producto.categoria === 'Cama' ">
+           
+            <div style="height: 50%; display: flex; margin-bottom: 7%;">
+              <div class="imagen">
+                
+              </div>
+              <div style="margin-bottom: 10%; margin-left: 5%;">
+                <h6>{{ producto.nombre }}</h6>
+                <h6>{{ producto.codigo }}</h6>
+                <span class="precio">Precio: ${{ producto.precio.toFixed(2) }}</span>
+                <br>
+                <span class="cantidad">Disponible: {{ producto.cantidad }}</span>
+                <br>
+                
+              </div>
+
+              
+            </div>
+            <div class="agregarP">
+              <div class="agregarC">
+                <p-button  [style]="{'width': '90%'}" label="Agregar" (click)="agregarMueble(producto)" >  <i class="pi pi-shopping-cart"></i> </p-button>
+              </div>
+              <div class="agregarC">
+                <p-inputNumber 
+   
+                [style]="{'width': 'auto'}"
+                   [showButtons]="true" 
+                   inputId="vertical" 
+                   [max]="producto.cantidad"
+                   [min]="1" 
+                   [(ngModel)]="producto.cantidadSeleccionada"/>
+              
+              </div>
+           
+            </div>
+           
+            <p-panel header="Descripción" [toggleable]="true">
+              <p>{{ producto.descripcion }}</p>
+            </p-panel>
+          </ng-container>    
+  </div>
+  
+
+</div>

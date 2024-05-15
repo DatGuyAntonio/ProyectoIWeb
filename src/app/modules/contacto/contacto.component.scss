@@ -42,3 +42,22 @@
     padding: 10px;
     border-radius: .5rem;
 }
+
+
+
+@media screen and (max-width: 768px) {
+    .formulario {
+        width: 100%; /* Ajusta el ancho del formulario */
+        padding: 1rem; /* Reduce el padding */
+    }
+    .campo label, .formulario legend {
+        font-size: 16px; /* Reduce el tamaño de la fuente */
+    }
+}
+
+/* Para pantallas de tamaño pequeño */
+@media screen and (max-width: 480px) {
+    .campo textarea {
+        height: 100px; /* Reduce la altura del textarea */
+    }
+}
