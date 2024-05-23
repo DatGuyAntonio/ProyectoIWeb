@@ -6,10 +6,15 @@ import { PanelModule } from 'primeng/panel';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FormsModule } from '@angular/forms';
 import { CarritoService } from '../../../../Services/Carrito/carrito.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { MueblesService } from '../../../../Services/muebles/muebles.service';
+import { TabMenuModule } from 'primeng/tabmenu';
 @Component({
   selector: 'app-camas',
   standalone: true,
-  imports: [DividerModule, FileUploadModule,CommonModule,PanelModule,InputNumberModule,FormsModule],
+  imports: [DividerModule, FileUploadModule,CommonModule,PanelModule,InputNumberModule,FormsModule, ToastModule, TabMenuModule],
+  providers: [ MessageService],
   templateUrl: './camas.component.html',
   styleUrl: './camas.component.scss'
 })
@@ -21,28 +26,38 @@ export class CamasComponent {
  productos:any[]=[];
  cantidadSeleccionada: number=0;
  mueblesCarrito: { sku: string, cantidad: number, precio: number }[] = [];
- constructor(private carritoService: CarritoService) { }
+ verContendio =true;
+ VerResultado=false;
+ constructor(private carritoService: CarritoService, private messageService: MessageService, private muebleService :MueblesService ) { }
  
   ngOnInit(){
-    this.categorias = [
-      { label: 'Camas' },
-      { label: 'Mesas de noche' },
-      { label: 'Armarios' },
-      { label: 'Escritorios' },
-      { label: 'Sillas' },
-      { label: 'Mesas de centro' }
-    ];
-    
-   this.productos = [
-      { nombre: 'Producto 1',codigo:'SKU12345',categoria:'cama', precio: 20.00, cantidad: 10, descripcion:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada lectus nec felis eleifend, sit amet lobortis nisl vehicula.'},
-      { nombre: 'Producto 2',codigo:'SKU12345', categoria:'Cama',precio: 25.00, cantidad: 15,descripcion:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada lectus nec felis eleifend, sit amet lobortis nisl vehicula.' },
-      { nombre: 'Producto 3',codigo:'SKU12345', categoria:'Cama',precio: 25.00, cantidad: 15,descripcion:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada lectus nec felis eleifend, sit amet lobortis nisl vehicula.' },
-      { nombre: 'Producto 4',codigo:'SKU12345', categoria:'Cama',precio: 25.00, cantidad: 15,descripcion:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada lectus nec felis eleifend, sit amet lobortis nisl vehicula.' },
-      { nombre: 'Producto 5',codigo:'SKU12345', categoria:'Cama',precio: 25.00, cantidad: 15,descripcion:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada lectus nec felis eleifend, sit amet lobortis nisl vehicula.' },
-      { nombre: 'Producto 6',codigo:'SKU12345', categoria:'Cama', precio: 25.00, cantidad: 15,descripcion:'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed malesuada lectus nec felis eleifend, sit amet lobortis nisl vehicula.' },
-      // Agrega más objetos de producto según sea necesario
-    ];
 
+    
+this.cargaMuebles();
+ 
+ 
+     
+  //  this.productos = [
+     
+      
+  //   ];
+
+    console.log(this.productos)
+
+  }
+
+
+  cargaMuebles(){
+  
+    this.muebleService.getMuebles() .subscribe(
+      data => {
+        this.productos = data;
+        console.log(this.productos)
+      },
+      error => {
+        console.error('Error al obtener los datos:', error);
+      }
+    );
   }
   onFileSelected(event: any): void {
     // Verificar si se seleccionó un archivo de imagen
@@ -52,10 +67,12 @@ export class CamasComponent {
       // Leer el archivo como un objeto de URL
       const reader = new FileReader();
       reader.onload = () => {
+       
         // Actualizar la vista previa con la URL de la imagen
         this.selectedImage = reader.result;
       };
       reader.readAsDataURL(file);
+      
     }
   }
 
@@ -82,6 +99,7 @@ agregarMueble(producto: any) {
     // Si el SKU no existe, agrega el nuevo mueble
     if(!existeSKU) {
         const mueble = {
+          nombre:producto.nombre ,
             sku: producto.codigo,
             cantidad: producto.cantidadSeleccionada,
             precio: producto.precio
@@ -89,11 +107,16 @@ agregarMueble(producto: any) {
 
         this.mueblesCarrito.push(mueble);
         this.enviarDatos();
+        producto.cantidadSeleccionada=0;
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Producto Agregado con exito al carrito', life: 3000});
+
     } else {
-        console.log("El producto con este SKU ya ha sido agregado al carrito");
+      this.messageService.add({ severity: 'info', summary: 'Info', detail: 'No se puede duplicar el mismo producto', life: 3000 });
+      producto.cantidadSeleccionada=0;
     }
 } else {
-    console.log("No se puede agregar un producto sin cantidad");
+  
+  this.messageService.add({ severity: 'info', summary: 'Info', detail: 'Favor de agregar cantidad al producto', life: 3000 });
 }
 
 
@@ -103,6 +126,11 @@ agregarMueble(producto: any) {
 enviarDatos() {
   this.carritoService.actualizarCarrito(this.mueblesCarrito);
   console.log("se Actualizo el carrito ")
+}
+
+mostrarResultadosIa(){
+  this.verContendio=false;
+  this.VerResultado=true;
 }
 
 }

@@ -2,7 +2,7 @@
 
 /* Estilos del banner principal */
 .banner {
-  background-image: url('../../imagenes/FondoBlanco.jpg');
+  background-image: url('/assets/imagenes/FondoBlanco.jpg');
   /* background-size: cover; */
   color: #fff;
   text-align: center;

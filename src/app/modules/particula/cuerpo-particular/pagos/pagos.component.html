@@ -1,0 +1,106 @@
+<div style="margin-top: 5%;">
+<div class="wrapper">
+    <h2>Forma de pago </h2>
+    <div class="contenedor">
+    <div style="margin-right: 2%;">
+
+    
+    <div  style="display: flex; margin: auto;">
+        <div style="width: 50%;  align-items: center;">
+            <div>
+                <i>Productos</i>
+                <div *ngFor="let item of carrito">
+                    <p>{{ item.nombre }} x {{ item.cantidad }}</p>
+                  </div>
+            </div>
+            
+        </div>
+        <div style="width: 50%; margin: auto; align-items: center;">
+            <div>
+                <i>Total</i>
+                <div *ngFor="let item of carrito">
+                    <p>{{ item.precio * item.cantidad }}</p>
+                  </div>
+            </div>
+           
+        </div>
+    </div>
+   
+
+    <form action="" method="post">
+        <!--Account Information Start-->
+        <h4>Account</h4>
+        <div class="input_group">
+            <div class="input_box">
+                <input type="text" placeholder="Full Name" required class="name" [value]="usuario?.nombre">
+                <i class="pi pi-user icon"></i>
+            </div>
+           
+        </div>
+        <div class="input_group">
+            <div class="input_box">
+                <input type="email" placeholder="Email Address" required  [value]="usuario?.correo" class="name">
+                <i class="pi pi-inbox icon"></i>
+            </div>
+        </div>
+        <div class="input_group">
+            <div class="input_box">
+                <input type="email" placeholder="Email Address" required  [value]="usuario?.celular" class="name">
+                <i class=" pi pi-phone icon"></i>
+            </div>
+        </div>
+        <div class="input_group">
+            <div *ngIf="usuario">
+                <h2> <i class=" pi pi-map"></i> Selecciona la direccion:</h2>
+                
+                <div *ngFor="let direccion of direccionesU">
+                  <label>
+                    <input type="checkbox">
+                    {{ direccion.calle }}, {{ direccion.colonia }}, {{ direccion.cp }}, {{ direccion.num_exterior }}
+                  </label>
+                  <br>
+                </div>
+              </div>
+        </div>
+  
+        <!--Account Information End-->
+    
+
+      
+        <!--DOB & Gender Start-->
+        <div class="input_group">
+            <div class="input_box">
+                <h4>Date Of Birth</h4>
+                <input type="text" placeholder="DD" required class="dob">
+                <input type="text" placeholder="MM" required class="dob">
+                <input type="text" placeholder="YYYY" required class="dob">
+            </div>
+            <div class="input_box">
+                <h4>Gender</h4>
+                <input type="radio" name="gender" class="radio" id="b1" checked>
+                <label for="b1">Male</label>
+                <input type="radio" name="gender" class="radio" id="b2">
+                <label for="b2">Female</label>
+            </div>
+        </div>
+        <!--DOB & Gender End-->
+  
+      
+    </form>
+      </div>
+      <div class="cPaypal">
+
+     
+        <!--Payment Details Start-->
+        <div  class="cPaypal" >
+            <div id="paypal-button-container"></div>
+        </div>
+       
+    </div>   
+        
+
+</div>
+  </div>
+
+
+</div>

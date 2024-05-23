@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormsModule, FormControl, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ClienteService } from '../../Services/cliente/cliente.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -27,25 +28,8 @@ import { ClienteService } from '../../Services/cliente/cliente.service';
 export class LoginComponent {
  usuario:any
  datosUsuario: any;
-  saveData(): void {
-     this.usuario = { name: 'John', age: 30, rol:'a'};
-   
-  }
-  onSubmit(): void {
-    if (this.miFormulario.valid) {
-      this.saveData();
-       if(this.usuario.rol == 'p'){
-        this.router.navigate(['/particula']);
-        this.getData();
-       }
-       else{
-        // console.log('No existe el usuario')
-       }
-       
-      // Aquí puedes realizar alguna acción antes de la redirección si es necesario
-      // Cambia '/nueva-ventana' por la ruta a la nueva ventana
-    }
-  }
+  
+  
 
   getData(): void {
    
@@ -53,8 +37,10 @@ export class LoginComponent {
   }
 
   visible: boolean = false;
+  visible2: boolean = false;
   miFormulario: FormGroup = new FormGroup({});
-  usuarioNuevo: FormGroup =new FormGroup({})
+  usuarioNuevo: FormGroup =new FormGroup({});
+  cambioContra: FormGroup =new FormGroup({});
   constructor(private formBuilder: FormBuilder, private router: Router,private clienteService: ClienteService ) { }
 
   ngOnInit(): void {
@@ -65,10 +51,20 @@ export class LoginComponent {
     this.usuarioNuevo= this.formBuilder.group({
       nombre:['', Validators.required],
       correo:['', [Validators.required, Validators.email]],
+      celular:['', [Validators.required,  Validators.minLength(10), Validators.maxLength(10)]],
+      cp:['', [Validators.required,  Validators.minLength(5), Validators.maxLength(5)]],
+      calle:['', [Validators.required]],
+      colonia:['', [Validators.required]],
+      numCasa:['', [Validators.required]],
       contraseña:['', [Validators.required, Validators.minLength(8)]],
       validarContraseña:['',[Validators.required, Validators.minLength(8)]],
       
     })
+    this.cambioContra = this.formBuilder.group({
+      correo:['', [Validators.required, Validators.email]],
+      contraseña:['', [Validators.required, Validators.minLength(8)]],
+      validarContraseña:['',[Validators.required, Validators.minLength(8)]]
+    });
   }
 
 
@@ -78,17 +74,42 @@ export class LoginComponent {
 
    AgregarUsuario(){
     const nuevoUsuario = {
-      correo:this.usuarioNuevo.controls['correo'].value,
+      correo: this.usuarioNuevo.controls['correo'].value ,
+      contrasena: this.usuarioNuevo.controls['contraseña'].value ,
       nombre: this.usuarioNuevo.controls['nombre'].value,
-      rol: 'p',
-      contrasena:this.usuarioNuevo.controls['contraseña'].value
+      celular: this.usuarioNuevo.controls['celular'].value,
+      domicilio: {
+        calle: this.usuarioNuevo.controls['calle'].value,
+        colonia: this.usuarioNuevo.controls['colonia'].value,
+        cp: this.usuarioNuevo.controls['cp'].value ,
+        num_Exterior: this.usuarioNuevo.controls['numCasa'].value
+      }
     };
+     this.clienteService.postClienteN(nuevoUsuario).subscribe(
+      (data:any)=>{
+         if(data===false){
+           this.visible=false;
+           this.usuarioNuevo.reset();
+          
+          Swal.fire({
+                    
+            text: "Se creo con exito su cuenta.",
+            icon: "success"
+        });
+         }
+      },
+      error => {
+        console.error('Error al obtener los datos:', error);
+      })
     
    }
 
    cerrar(){
     this.visible=false
     this.usuarioNuevo.reset();
+
+    this.visible2=false;
+    this.cambioContra.reset();
 
    }
 
@@ -100,17 +121,19 @@ export class LoginComponent {
       (data: any[]) => {
         if(data !== null){
           this.datosUsuario = data;
-          console.log(this.datosUsuario);
+          
           let contrasena: string = this.datosUsuario.contrasena;
          if(contrasena===contrasenal){
           let rol: string = this.datosUsuario.rol;
-          console.log(rol);
-            if(rol==='c' || rol==='C'){
+         
+            if(rol==='c' || rol==='C' || rol==='e' || rol==='E'){
               
               this.router.navigate(['/particula']);
             }else{
               this.router.navigate(['/administrador']);
             }
+
+            localStorage.setItem('usuario', JSON.stringify(this.datosUsuario));
          }else{
           console.log('invalida papu')
          }
@@ -122,8 +145,14 @@ export class LoginComponent {
     );
     
 
+    
 
    }
 
+cambiarContra(){
+  this.visible2=true;
+
+
+}
    
 }

@@ -11,6 +11,7 @@ import { AlmacenComponent } from './modules/administrador/Cuerpo-Administrador/a
 import { MensjaesComponent } from './modules/administrador/Cuerpo-Administrador/mensjaes/mensjaes.component';
 import { PedidosComponent } from './modules/administrador/Cuerpo-Administrador/pedidos/pedidos.component';
 import { UsuariosComponent } from './modules/administrador/Cuerpo-Administrador/usuarios/usuarios.component';
+import { PagosComponent } from './modules/particula/cuerpo-particular/pagos/pagos.component';
 export const routes: Routes = [
     {
       path: 'login', 
@@ -69,6 +70,11 @@ export const routes: Routes = [
           path: 'muebles',
           component: CamasComponent,
           loadChildren: () => import('./modules/particula/cuerpo-particular/muebles/camas.module').then((m) => m.CamasModule)
+        },
+        {
+          path: 'pagos',
+          component: PagosComponent,
+          loadChildren: () => import('./modules/particula/cuerpo-particular/pagos/pagos.module').then((m) => m.PagosModule)
         }
       ]
     },

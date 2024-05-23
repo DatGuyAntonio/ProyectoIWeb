@@ -1,8 +1,15 @@
+
+<p-toast />
+
+
 <div style="margin-bottom: 10%; background-color: rgb(243, 242, 242);">
+  
+
   <div class="container">
     <p-panel header="Subir Imagen" [toggleable]="true" class="panel">
       <div class="upload-container">
-        <p-fileUpload name="myfile[]" url="https://www.primefaces.org/cdn/api/upload.php" [multiple]="false" accept="image/*" (onSelect)="onFileSelected($event)">
+        <p-fileUpload name="myfile[]" url="https://www.primefaces.org/cdn/api/upload.php" [multiple]="false"
+          accept="image/*" (onSelect)="onFileSelected($event)" (onUpload)="mostrarResultadosIa()">
           <ng-template pTemplate="toolbar">
             <div class="py-3">Subir 1 Imagen</div>
           </ng-template>
@@ -12,65 +19,373 @@
             </div>
           </ng-template>
         </p-fileUpload>
-      </div>       
+      </div>
     </p-panel>
   </div>
-  
-
-<hr>
-    
-<div class="divider-text">Camas</div>
-
-<hr>
-
 
   
 
+  <div *ngIf="verContendio">
 
-<div class="grid">
-    
+
+
+
+
+  <div class="grid">
+
     <div *ngFor="let producto of productos" class="producto">
-        <ng-container *ngIf="producto.categoria === 'cama' || producto.categoria === 'Cama' ">
-           
-            <div style="height: 50%; display: flex; margin-bottom: 7%;">
-              <div class="imagen">
-                
-              </div>
-              <div style="margin-bottom: 10%; margin-left: 5%;">
-                <h6>{{ producto.nombre }}</h6>
-                <h6>{{ producto.codigo }}</h6>
-                <span class="precio">Precio: ${{ producto.precio.toFixed(2) }}</span>
-                <br>
-                <span class="cantidad">Disponible: {{ producto.cantidad }}</span>
-                <br>
-                
-              </div>
+      <ng-container *ngIf="(producto.categoria === 'cama' || producto.categoria === 'Cama')" class="grid">
 
-              
-            </div>
-            <div class="agregarP">
-              <div class="agregarC">
-                <p-button  [style]="{'width': '90%'}" label="Agregar" (click)="agregarMueble(producto)" >  <i class="pi pi-shopping-cart"></i> </p-button>
-              </div>
-              <div class="agregarC">
-                <p-inputNumber 
-   
-                [style]="{'width': 'auto'}"
-                   [showButtons]="true" 
-                   inputId="vertical" 
-                   [max]="producto.cantidad"
-                   [min]="1" 
-                   [(ngModel)]="producto.cantidadSeleccionada"/>
-              
-              </div>
-           
-            </div>
-           
-            <p-panel header="Descripción" [toggleable]="true">
-              <p>{{ producto.descripcion }}</p>
-            </p-panel>
-          </ng-container>    
+
+        <div style="height: 50%; display: flex; margin-bottom: 15px;">
+
+          <img class="imagen" [src]="producto.img">
+
+
+          <div style="margin-bottom: 15px; margin-left: 5%;">
+            <h6>{{ producto.nombre }}</h6>
+            <h6>{{ producto.codigo }}</h6>
+            <span class="precio">Precio: ${{ producto.precio.toFixed(2) }}</span>
+            <br>
+            <span class="cantidad">Disponible: {{ producto.cantidad }}</span>
+            <br>
+
+          </div>
+
+
+        </div>
+        <div class="agregarP">
+          <div class="agregarC">
+            <p-button [style]="{'width': '90%'}" label="Agregar" (click)="agregarMueble(producto)"> <i
+                class="pi pi-shopping-cart"></i> </p-button>
+          </div>
+          <div class="agregarC">
+            <p-inputNumber [style]="{'width': 'auto'}" [showButtons]="true" inputId="vertical" [max]="producto.cantidad"
+              [min]="1" [(ngModel)]="producto.cantidadSeleccionada" />
+
+          </div>
+
+        </div>
+
+        <p-panel header="Descripción" [toggleable]="true">
+          <p>{{ producto.descripcion }}</p>
+        </p-panel>
+      </ng-container>
+      <!-- </div>
+   -->
+
+      <!-- </div> -->
+
+
+
+      <!-- <hr>
+
+      <div class="divider-text">Armarios</div>
+
+      <hr> -->
+
+
+
+
+
+      <!-- <div class="grid"> -->
+
+      <!-- <div *ngFor="let producto of productos" class="producto"> -->
+      <ng-container *ngIf="(producto.categoria === 'armarios' || producto.categoria === 'Armarios')">
+
+
+        <div style="height: 50%; display: flex; margin-bottom: 15px;">
+
+          <img class="imagen" [src]="producto.img">
+
+
+          <div style="margin-bottom: 15px; margin-left: 5%;">
+            <h6>{{ producto.nombre }}</h6>
+            <h6>{{ producto.codigo }}</h6>
+            <span class="precio">Precio: ${{ producto.precio.toFixed(2) }}</span>
+            <br>
+            <span class="cantidad">Disponible: {{ producto.cantidad }}</span>
+            <br>
+
+          </div>
+
+
+        </div>
+        <div class="agregarP">
+          <div class="agregarC">
+            <p-button [style]="{'width': '90%'}" label="Agregar" (click)="agregarMueble(producto)"> <i
+                class="pi pi-shopping-cart"></i> </p-button>
+          </div>
+          <div class="agregarC">
+            <p-inputNumber [style]="{'width': 'auto'}" [showButtons]="true" inputId="vertical" [max]="producto.cantidad"
+              [min]="1" [(ngModel)]="producto.cantidadSeleccionada" />
+
+          </div>
+
+        </div>
+
+        <p-panel header="Descripción" [toggleable]="true">
+          <p>{{ producto.descripcion }}</p>
+        </p-panel>
+      </ng-container>
+      <!-- </div> -->
+
+
+      <!-- </div> -->
+
+
+
+
+        <!-- <hr>
+      
+  <div class="divider-text">Escritorios</div>
+
+  <hr> -->
+
+      <!-- <div class="grid "> -->
+
+      <!-- <div *ngFor="let producto of productos" class="producto"> -->
+      <ng-container *ngIf="(producto.categoria === 'escritorio' || producto.categoria === 'Escritorios')">
+
+
+        <div style="height: 50%; display: flex; margin-bottom: 15px;">
+
+          <img class="imagen" [src]="producto.img">
+
+
+          <div style="margin-bottom: 15px; margin-left: 5%;">
+            <h6>{{ producto.nombre }}</h6>
+            <h6>{{ producto.codigo }}</h6>
+            <span class="precio">Precio: ${{ producto.precio.toFixed(2) }}</span>
+            <br>
+            <span class="cantidad">Disponible: {{ producto.cantidad }}</span>
+            <br>
+
+          </div>
+
+
+        </div>
+        <div class="agregarP">
+          <div class="agregarC">
+            <p-button [style]="{'width': '90%'}" label="Agregar" (click)="agregarMueble(producto)"> <i
+                class="pi pi-shopping-cart"></i> </p-button>
+          </div>
+          <div class="agregarC">
+            <p-inputNumber [style]="{'width': 'auto'}" [showButtons]="true" inputId="vertical" [max]="producto.cantidad"
+              [min]="1" [(ngModel)]="producto.cantidadSeleccionada" />
+
+          </div>
+
+        </div>
+
+        <p-panel header="Descripción" [toggleable]="true">
+          <p>{{ producto.descripcion }}</p>
+        </p-panel>
+      </ng-container>
+      <!-- </div> -->
+
+
+      <!-- </div> -->
+
+
+      <!-- <hr>
+    
+  <div class="divider-text">Mesas de Centro</div>
+
+  <hr> -->
+
+      <!-- <div class="grid"> -->
+      <!--     
+    <div *ngFor="let producto of productos" class="producto"> -->
+      <ng-container *ngIf="(producto.categoria === 'centro' || producto.categoria === 'Centro')">
+
+
+        <div style="height: 50%; display: flex; margin-bottom: 15px;">
+
+          <img class="imagen" [src]="producto.img">
+
+
+          <div style="margin-bottom: 15px; margin-left: 5%;">
+            <h6>{{ producto.nombre }}</h6>
+            <h6>{{ producto.codigo }}</h6>
+            <span class="precio">Precio: ${{ producto.precio.toFixed(2) }}</span>
+            <br>
+            <span class="cantidad">Disponible: {{ producto.cantidad }}</span>
+            <br>
+
+          </div>
+
+
+        </div>
+        <div class="agregarP">
+          <div class="agregarC">
+            <p-button [style]="{'width': '90%'}" label="Agregar" (click)="agregarMueble(producto)"> <i
+                class="pi pi-shopping-cart"></i> </p-button>
+          </div>
+          <div class="agregarC">
+            <p-inputNumber [style]="{'width': 'auto'}" [showButtons]="true" inputId="vertical" [max]="producto.cantidad"
+              [min]="1" [(ngModel)]="producto.cantidadSeleccionada" />
+
+          </div>
+
+        </div>
+
+        <p-panel header="Descripción" [toggleable]="true">
+          <p>{{ producto.descripcion }}</p>
+        </p-panel>
+      </ng-container>
+      <!-- </div> -->
+
+
+      <!-- </div> -->
+
+
+
+      <!-- <hr>
+    
+  <div class="divider-text">Mesas de Noche</div>
+
+  <hr> -->
+
+      <!-- <div class="grid"> -->
+
+      <!-- <div *ngFor="let producto of productos" class="producto"> -->
+      <ng-container *ngIf="(producto.categoria === 'noche' || producto.categoria === 'Noche')">
+
+
+        <div style="height: 50%; display: flex; margin-bottom: 15px;">
+
+          <img class="imagen" [src]="producto.img">
+
+
+          <div style="margin-bottom: 15px; margin-left: 5%;">
+            <h6>{{ producto.nombre }}</h6>
+            <h6>{{ producto.codigo }}</h6>
+            <span class="precio">Precio: ${{ producto.precio.toFixed(2) }}</span>
+            <br>
+            <span class="cantidad">Disponible: {{ producto.cantidad }}</span>
+            <br>
+
+          </div>
+
+
+        </div>
+        <div class="agregarP">
+          <div class="agregarC">
+            <p-button [style]="{'width': '90%'}" label="Agregar" (click)="agregarMueble(producto)"> <i
+                class="pi pi-shopping-cart"></i> </p-button>
+          </div>
+          <div class="agregarC">
+            <p-inputNumber [style]="{'width': 'auto'}" [showButtons]="true" inputId="vertical" [max]="producto.cantidad"
+              [min]="1" [(ngModel)]="producto.cantidadSeleccionada" />
+
+          </div>
+
+        </div>
+
+        <p-panel header="Descripción" [toggleable]="true">
+          <p>{{ producto.descripcion }}</p>
+        </p-panel>
+      </ng-container>
+      <!-- </div> -->
+
+
+      <!-- </div> -->
+
+
+      <!-- <hr>
+    
+  <div class="divider-text">Sillas</div>
+
+  <hr> -->
+
+      <!-- <div class="grid margenArriba">
+     -->
+      <!-- <div *ngFor="let producto of productos" class="producto"> -->
+      <ng-container *ngIf="(producto.categoria === 'sillas' || producto.categoria === 'Sillas')">
+
+
+        <div style="height: 50%; display: flex; margin-bottom: 15px;">
+
+          <img class="imagen" [src]="producto.img">
+
+
+          <div style="margin-bottom: 15px; margin-left: 5%;">
+            <h6>{{ producto.nombre }}</h6>
+            <h6>{{ producto.codigo }}</h6>
+            <span class="precio">Precio: ${{ producto.precio.toFixed(2) }}</span>
+            <br>
+            <span class="cantidad">Disponible: {{ producto.cantidad }}</span>
+            <br>
+
+          </div>
+
+
+        </div>
+        <div class="agregarP">
+          <div class="agregarC">
+            <p-button [style]="{'width': '90%'}" label="Agregar" (click)="agregarMueble(producto)"> <i
+                class="pi pi-shopping-cart"></i> </p-button>
+          </div>
+          <div class="agregarC">
+            <p-inputNumber [style]="{'width': 'auto'}" [showButtons]="true" inputId="vertical" [max]="producto.cantidad"
+              [min]="1" [(ngModel)]="producto.cantidadSeleccionada" />
+
+          </div>
+
+        </div>
+
+        <p-panel header="Descripción" [toggleable]="true">
+          <p>{{ producto.descripcion }}</p>
+        </p-panel>
+      </ng-container>
+    </div>
+
+
   </div>
-  
+</div>
+
+<div *ngIf="VerResultado" class="grid ">
+
+  <div *ngFor="let producto of productos" class="producto">
+<ng-container *ngIf="(producto.categoria === 'sillas' || producto.categoria === 'Sillas')">
+
+
+  <div style="height: 50%; display: flex; margin-bottom: 15px;">
+
+    <img class="imagen" [src]="producto.img">
+
+
+    <div style="margin-bottom: 15px; margin-left: 5%;">
+      <h6>{{ producto.nombre }}</h6>
+      <h6>{{ producto.codigo }}</h6>
+      <span class="precio">Precio: ${{ producto.precio.toFixed(2) }}</span>
+      <br>
+      <span class="cantidad">Disponible: {{ producto.cantidad }}</span>
+      <br>
+
+    </div>
+
+
+  </div>
+  <div class="agregarP">
+    <div class="agregarC">
+      <p-button [style]="{'width': '90%'}" label="Agregar" (click)="agregarMueble(producto)"> <i
+          class="pi pi-shopping-cart"></i> </p-button>
+    </div>
+    <div class="agregarC">
+      <p-inputNumber [style]="{'width': 'auto'}" [showButtons]="true" inputId="vertical" [max]="producto.cantidad"
+        [min]="1" [(ngModel)]="producto.cantidadSeleccionada" />
+
+    </div>
+
+  </div>
+
+  <p-panel header="Descripción" [toggleable]="true">
+    <p>{{ producto.descripcion }}</p>
+  </p-panel>
+</ng-container>
+  </div>
+</div>
 
 </div>

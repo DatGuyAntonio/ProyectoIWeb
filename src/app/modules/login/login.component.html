@@ -18,7 +18,7 @@
   </div>
 </header>
 
-<form [formGroup]="miFormulario" (ngSubmit)="onSubmit()">
+<form [formGroup]="miFormulario" class="forml">
   <div>
     <label for="username">Nombre de usuario:</label>
     <input type="text" id="username" formControlName="username" placeholder="Ingrese su nombre de usuario">
@@ -31,10 +31,14 @@
 
     <p-button type="submit" class="login-button t-texto" [disabled]="miFormulario.invalid" [rounded]="true"
       severity="success" (click)="iniciarsecion()" >ininciar session</p-button>
-    <p-button class="create-account-button" (click)="showDialog()" severity="secondary" [rounded]="true">Crear
-      cuenta</p-button>
-
+   
+      <p-button class="create-account-button" (click)="cambiarContra()" severity="help" [rounded]="true">Cambiar Contraseña</p-button>
   </div>
+<div style="margin: auto; align-items: center;">
+  <p-button class="create-account-button" (click)="showDialog()" severity="secondary" [rounded]="true">Crear cuenta</p-button>
+</div>
+  
+
 </form>
 
 
@@ -46,32 +50,66 @@
 </footer>
 
 
-<p-dialog header="Crear Cuenta" [(visible)]="visible" [modal]="true" [style]="{ width: '25vw' }"      [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"  [draggable]="false" [resizable]="false" [closable]="false">
-<form [formGroup]="usuarioNuevo">
-  <div class="flex flex-column gap-2">
-    <label for="username">Nombre:</label>
-    <input  formControlName="nombre" style="max-width: 100%;" type="text" pInputText />
-
-  </div>
-  <div class="flex flex-column gap-2">
-    <label for="username">Correo:</label>
-    <input  formControlName="correo" style="max-width: 100%;" type="text" pInputText />
-
-  </div>
-  <div class="flex flex-column gap-2">
-    <label for="username">contraseña:</label>
-    <p-password   formControlName="contraseña" [toggleMask]="true"   [style]="{'width':'90%'}"  [inputStyle]="{'width':'100%'}" ></p-password>
-    <div *ngIf="usuarioNuevo.get('contraseña')?.touched && usuarioNuevo.get('contraseña')?.errors?.['required']" style="font-size: 0.8rem; color: red;">La contraseña es obligatoria.</div>
-  </div>
-  <div class="flex flex-column gap-2">
-    <label for="username">Valida la contraseña:</label>
-    <p-password  formControlName="validarContraseña" [toggleMask]="true"  [style]="{'width':'90%'}"  [inputStyle]="{'width':'100%'}" [feedback]="false"></p-password>
-    <div *ngIf="usuarioNuevo.get('validarContraseña')?.touched &&usuarioNuevo.get('validarContraseña')?.errors?.['required']" style="font-size: 0.8rem; color: red;">Debe validar la contraseña.</div>
-    <div *ngIf="usuarioNuevo.get('contraseña')?.value !== usuarioNuevo.get('validarContraseña')?.value && usuarioNuevo.get('validarContraseña')?.touched" style="font-size: 0.8rem; color: red;">Las contraseñas no coinciden.</div>
-  </div>
-  <p style="font-size: 0.6rem;">Si acabas de crear una cuenta y necesitas una empresarial, envía un mensaje para solicitar el cambio.</p>
-</form>
-  <ng-template pTemplate="footer">
+<p-dialog header="Crear Cuenta" [(visible)]="visible" [modal]="true" [style]="{ width: '50vw' }"      [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"  [draggable]="false" [resizable]="false" [closable]="false">
+  <form [formGroup]="usuarioNuevo" class="formW">
+    <div >
+      <div class="flex-column">
+        <div class=" gap-2">
+          <label for="username">Nombre:</label>
+          <input formControlName="nombre" class="input-width" type="text" pInputText />
+        </div>
+        <div class=" gap-2">
+          <label for="username">Celular:</label>
+          <input formControlName="celular" class="input-width" type="text" pInputInt minlength="10" maxlength="10"/>
+          <div *ngIf="usuarioNuevo.get('celular')?.touched && usuarioNuevo.get('celular')?.errors?.['required']" style="font-size: 0.8rem; color: red;">el numero de celular es obligatorio.</div>
+        </div>
+      </div>
+      <div class="gap-2">
+        <label for="username">Correo:</label>
+        <input formControlName="correo" class="input-width" type="text" pInputText />
+      </div>
+      <div class="flex-column">
+        <div class=" gap-2">
+          <label for="username">Contraseña:</label>
+          <p-password formControlName="contraseña" [toggleMask]="true" class="input-widthp" [style]="{'width':'90%'}" [inputStyle]="{'width':'100%'}" ></p-password>
+          <div *ngIf="usuarioNuevo.get('contraseña')?.touched && usuarioNuevo.get('contraseña')?.errors?.['required']" style="font-size: 0.8rem; color: red;">La contraseña es obligatoria.</div>
+        </div>
+        <div class=" gap-2">
+          <label for="username">Valida la contraseña:</label>
+          <p-password formControlName="validarContraseña" [toggleMask]="true" class="input-widthp"  [style]="{'width':'90%'}"  [inputStyle]="{'width':'100%'}"  [feedback]="false"></p-password>
+          <div *ngIf="usuarioNuevo.get('validarContraseña')?.touched &&usuarioNuevo.get('validarContraseña')?.errors?.['required']" style="font-size: 0.8rem; color: red;">Debe validar la contraseña.</div>
+          <div *ngIf="usuarioNuevo.get('contraseña')?.value !== usuarioNuevo.get('validarContraseña')?.value && usuarioNuevo.get('validarContraseña')?.touched" style="font-size: 0.8rem; color: red;">Las contraseñas no coinciden.</div>
+        </div>
+      </div>
+      <div>
+        <label>Domicilio</label>
+        <div >
+          <div class="flex-column">
+            <div class="flex-column gap-2">
+              <label for="username">CP:</label>
+              <input formControlName="cp" class="input-widthD" type="text" pInputText minlength="5" maxlength="5" />
+            </div>
+            <div class="flex-column gap-2">
+              <label for="username">Número de casa:</label>
+              <input formControlName="numCasa" class="input-width" type="text" pInputInt maxlength="10" />
+            </div>
+          </div>
+          <div class="flex-column">
+            <div class=" gap-2">
+              <label for="username">Calle:</label>
+              <input formControlName="calle" class="input-width" type="text" pInputText />
+            </div>
+            <div class=" gap-2">
+              <label for="username">Colonia:</label>
+              <input formControlName="colonia" class="input-width" type="text" pInputInt />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p style="font-size: 0.6rem;">Si acabas de crear una cuenta y necesitas una empresarial, envía un mensaje para solicitar el cambio adjuntando en el cuerpo del mensaje el RFC de la empresa.</p>
+  </form>
+    <ng-template pTemplate="footer">
     <div class="botones-fotter">
       <p-button class="create-account-button" label="Crear cuenta" [raised]="true" severity="success"
       size="small" [disabled]="usuarioNuevo.invalid || usuarioNuevo.get('contraseña')?.value !== usuarioNuevo.get('validarContraseña')?.value" (click)="AgregarUsuario()"></p-button>
@@ -79,4 +117,37 @@
       <p-button label="Cancelar" [raised]="true" severity="danger" (click)="cerrar()" size="small"></p-button>
     </div>
   </ng-template>
+</p-dialog>
+
+<p-dialog header="Cambio de contraseña"[(visible)]="visible2" [modal]="true" [style]="{ width: '40vw' }"      [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"  [draggable]="false" [resizable]="false" [closable]="false">
+<form  [formGroup]="cambioContra"  class="formW">
+  <div class="gap-2">
+    <label for="username">Correo:</label>
+    <input formControlName="correo" class="input-width" type="text" pInputText />
+  </div>
+  <div *ngIf="cambioContra.get('correo')?.touched && cambioContra.get('correo')?.errors?.['required']" style="font-size: 0.8rem; color: red;">El correo es obligatorio.</div>
+  <div class="flex-column">
+    <div class=" gap-2">
+      <label for="username">Contraseña:</label>
+      <p-password formControlName="contraseña" [toggleMask]="true" class="input-widthp" [style]="{'width':'90%'}" [inputStyle]="{'width':'100%'}" ></p-password>
+      <div *ngIf="cambioContra.get('contraseña')?.touched && cambioContra.get('contraseña')?.errors?.['required']" style="font-size: 0.8rem; color: red;">La contraseña es obligatoria.</div>
+    </div>
+    <div class=" gap-2">
+      <label for="username">Valida la contraseña:</label>
+      <p-password formControlName="validarContraseña" [toggleMask]="true" class="input-widthp"  [style]="{'width':'90%'}"  [inputStyle]="{'width':'100%'}"  [feedback]="false"></p-password>
+      <div *ngIf="cambioContra.get('validarContraseña')?.touched &&cambioContra.get('validarContraseña')?.errors?.['required']" style="font-size: 0.8rem; color: red;">Debe validar la contraseña.</div>
+      <div *ngIf="cambioContra.get('contraseña')?.value !== cambioContra.get('validarContraseña')?.value && cambioContra.get('validarContraseña')?.touched" style="font-size: 0.8rem; color: red;">Las contraseñas no coinciden.</div>
+    </div>
+  </div>
+</form>
+
+<ng-template pTemplate="footer">
+  <div class="botones-fotter">
+    <p-button class="create-account-button" label="Crear cuenta" [raised]="true" severity="success"
+    size="small" [disabled]="cambioContra.invalid || cambioContra.get('contraseña')?.value !== cambioContra.get('validarContraseña')?.value" (click)="AgregarUsuario()"></p-button>
+
+    <p-button label="Cancelar" [raised]="true" severity="danger" (click)="cerrar()" size="small"></p-button>
+  </div>
+</ng-template>
+
 </p-dialog>

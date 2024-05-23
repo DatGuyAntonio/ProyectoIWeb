@@ -5,7 +5,7 @@ import { ButtonModule } from 'primeng/button';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { UsuarioService } from './Services/usuario.service';
+
 
 @NgModule({
   declarations: [],
@@ -20,6 +20,6 @@ import { UsuarioService } from './Services/usuario.service';
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA // Agregar el CUSTOM_ELEMENTS_SCHEMA
   ],
-  providers:[UsuarioService]
+ 
 })
 export class AppModule { }

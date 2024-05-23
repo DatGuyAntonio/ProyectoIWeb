@@ -7,7 +7,7 @@
 }
 /* Estilos del banner principal */
 .banner {
-  background-image: url('../../imagenes/FondoBlanco.jpg');
+  background-image: url('/assets/imagenes/FondoBlanco.jpg');
   /* background-size: cover; */
   color: #fff;
   text-align: center;
@@ -55,7 +55,7 @@ footer {
 
 
 /*-------------------------------------------------------------------------------------------*/
-form {
+.forml {
   max-width: 300px;
   margin: 3% auto ;
   padding: 20px;
@@ -111,16 +111,15 @@ p-button {
 .contenedor-cliente{
   display: flex;
 }
-
-.botones-fotter{
+.botones-fotter {
   display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
+  justify-content: space-between; /* Corregido aquí */
+  flex-wrap: wrap;
 }
 
 .botones-fotter p-button {
   flex: 1 0 auto; /* Los botones pueden crecer y no encogerse, manteniendo su base auto */
-  margin: 0.5em; /* Añade margen alrededor de los botones */
+  margin: 0.5rem; /* Añade margen alrededor de los botones */
 }
 
 .form-group {
@@ -147,8 +146,50 @@ p-button {
     width: 100%;
   }
 
-  form{
+  .forml{
     margin-top: 5%;
     margin-bottom: 30%;
   }
+}
+
+.formW {
+  max-width: 70% !important;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.flex-column {
+  display: flex;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .formW {
+    max-width: 100% !important;
+  }
+  .flex-column {
+    flex-direction: column;
+    width: 100%;
+  }
+  .input-width {
+    width: 100% !important;
+  }
+  .input-widthp {
+    width: 100% !important;
+  }
+  .input-widthD{
+    width: 100%;
+  }
+}
+
+
+.input-widthp{
+  width: 80% !important;
+}
+
+.input-widthD{
+  width: 50% !important;
 }

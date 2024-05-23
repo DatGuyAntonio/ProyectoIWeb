@@ -1,3 +1,10 @@
+.fijomenu {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000; /* Ajusta según sea necesario */
+  top: 140px;
+}
 .t-boton .p-button {
     height: 40px !important;
 }
@@ -14,13 +21,38 @@
 .logOut{
     width: 30px; /* Ajusta el ancho según sea necesario */
     height: 40px; /* Ajusta la altura según sea necesario */
-    background-image: url(../../imagenes/icons8-salida-30.png);
+    background-image: url( '/assets/imagenes/icons8-salida-30.png');
     background-size: contain; /* Para que la imagen se ajuste al tamaño del div */
     background-repeat: no-repeat;
 }
 
-.nav-car{
-   display: flex;
-   justify-content: space-between;
-    font-size: 10px;
-}
+// .nav-car{
+//    display: flex;
+//    justify-content: space-between;
+//     font-size: 10px;
+// }
+
+.nav-car {
+    width: 100%;
+  }
+  
+  .header, .body-row {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+    padding: 8px 0;
+  }
+  
+  .header-item, .body-item {
+    flex: 1;
+    text-align: center;
+  }
+  
+  .header {
+    font-weight: bold;
+  }
+  
+  .body-row:hover {
+    background-color: #f9f9f9;
+  }
+  

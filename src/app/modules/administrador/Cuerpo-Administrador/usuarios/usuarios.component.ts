@@ -11,11 +11,12 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { HttpClientModule } from '@angular/common/http';
 import { ClienteService } from '../../../../Services/cliente/cliente.service';
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-usuarios',
   standalone: true,
   imports: [TableModule,CommonModule, ButtonModule, DialogModule,DropdownModule,InputTextModule,ToastModule,ConfirmDialogModule,
-    HttpClientModule
+    HttpClientModule,FormsModule
   ],
   providers: [ConfirmationService, MessageService],
   templateUrl: './usuarios.component.html',
@@ -37,16 +38,23 @@ export class UsuariosComponent {
  
 ];
 
+dir:any;
 constructor(private confirmationService: ConfirmationService, private messageService: MessageService, private clienteService: ClienteService) {}
   ngOnInit() {
    
 this.cargaUsuario();
 this.cities = [
-  { name: 'Empresa', code: 'E' },
-  { name: 'Particular', code: 'P' },
-  { name: 'Administrador', code: 'A' }
+  { label: 'Empresa', value: 'e' },
+  { label: 'Particular', value: 'c' },
+  { label: 'Administrador', value: 'a' }
 ];
- 
+this.dir = [  // Definición de columnas de la tabla
+{ header: 'CP', field: 'cp' },
+{ header: 'Colonia', field: 'colonia' },
+{ header: 'Calle', field: 'calle' },
+{ header: 'Num. Casa', field: 'num_casa' },
+
+];
 }
 
 
@@ -72,11 +80,17 @@ applyFilter(event: any, field: string) {
 isHTMLInputElement(target: EventTarget | null): target is HTMLInputElement {
   return target instanceof HTMLInputElement;
 }
-
-showDialog(){
+rowData: any = {};
+showDialog(rowData :any){
+  this.rowData = rowData;
   this.visible=true;
+  if (this.rowData && this.rowData.rol) {
+    const matchingCity = this.cities.find(city => city.value === this.rowData.rol);
+    if (matchingCity) {
+        this.rowData.rol = matchingCity.value;
+    }
 }
-
+}
 
 confirm() {
   this.confirmationService.confirm({
@@ -87,6 +101,8 @@ confirm() {
       rejectButtonStyleClass: 'p-button-sm',
       acceptButtonStyleClass: 'p-button-outlined p-button-sm',
       accept: () => {
+
+
           this.messageService.add({ severity: 'info', summary: 'Confirmacion', detail: 'Se elimino con exito', life: 3000 });
       },
       reject: () => {
@@ -94,6 +110,38 @@ confirm() {
       }
   });
 }
+
+ Desactivar(rowData:any){
+  let correo=rowData.correo;
+  console.log(correo);
+
+  this.confirmationService.confirm({
+    header: 'Confirmation',
+    message: '¿Desea desactivar a este usuario?.',
+    acceptIcon: 'pi pi-check mr-2',
+    rejectIcon: 'pi pi-times mr-2',
+    rejectButtonStyleClass: 'p-button-sm',
+    acceptButtonStyleClass: 'p-button-outlined p-button-sm',
+    accept: () => {
+      this.clienteService.putDesactivarUsuario(correo).subscribe(
+        data => {
+          
+            this.messageService.add({ severity: 'info', summary: 'Confirmacion', detail: 'Se desactivo con exito', life: 3000 });
+            this.cargaUsuario();
+          
+        },
+        error => {
+          this.messageService.add({ severity: 'error', summary:'error', detail: 'ocurrio un error', life: 3000 });
+        }
+      );
+       
+    },
+    reject: () => {
+        this.messageService.add({ severity: 'error', summary: 'Cancelacion', detail: 'Ha cancelado el proceso', life: 3000 });
+    }
+});
+
+ }
 
 
 

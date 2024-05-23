@@ -1,39 +1,13 @@
-.card {
-    display: flex;
-    flex-wrap: wrap;
+
+
+
+.margenArriba{
+  margin-top: -500%;
 }
-
-.card p {
-    flex: 1;
-    padding: 10px;
-}
-
-p-divider {
-    display: none; /* Para ocultar el separador en pantallas pequeñas */
-}
-
-@media (max-width: 768px) {
-    .card p-divider {
-        display: block; /* Mostrar el separador en pantallas pequeñas */
-    }
-}
-
-.vista-previa{
-    margin-left: 5%;
-    width: 40px;
-    height: 40px;
-}
-.custom-margin {
-    margin-top: 10px; /* Puedes ajustar el tamaño del margen según tus necesidades */
-  }
-
-
-
  
 .imagen{
-    width: 90%; /* Ajusta el ancho según sea necesario */
-    height: auto; /* Ajusta la altura según sea necesario */
-    background-image: url(../../../../imagenes/cama\ prueba.jpg);
+    width: 50%; /* Ajusta el ancho según sea necesario */
+    height: 150px; /* Ajusta la altura según sea necesario */
     background-size: contain; /* Para que la imagen se ajuste al tamaño del div */
     background-repeat: no-repeat;
 }
@@ -43,9 +17,11 @@ p-divider {
 :host ::ng-deep .p-inputnumber-input {
     width: 90% !important;
   }
+ 
   
   .grid {
-    margin: auto;
+    height: auto;
+    margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
     width: 90%;
@@ -54,7 +30,7 @@ p-divider {
   }
   
   .producto {
-    margin-bottom: 3%;
+    margin-bottom: auto;
     width: calc(28%);
   }
   
@@ -100,6 +76,11 @@ p-divider {
       max-width: 100%;
       margin-bottom: 5%;
     }
+
+    .imagen{
+      width: 40%;
+    }
+    
   }
   
    /* Estilos para centrar el texto en el div */
@@ -108,7 +89,7 @@ p-divider {
     margin-top: -10px; /* Ajusta este valor para centrar verticalmente el texto */
 }
 /* Estilos para la línea divisora */
-hr {
+ hr {
     border: none;
     border-top: 1px solid #3a3a3a; /* Cambia el color de la línea según sea necesario */
     margin: 10px 0;
@@ -153,4 +134,15 @@ hr {
         padding: 6px 10px; /* Cambia el padding del botón */
     }
   }
+  
+
+
+
+
+
+
+
+
+
+
   
