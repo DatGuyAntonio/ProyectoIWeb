@@ -7,12 +7,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class MueblesService {
-  private urlEndpoint : string = enviroment.Urls_Base + 'Mueble/';
+  private urlEndpoint : string = enviroment.Urls_Base + 'Mueble';
 
   constructor(private http: HttpClient) { }
 
   getMuebles(): Observable<any[]>{
-    return this.http.get<any[]>(this.urlEndpoint+'Obtener_muebles');
+    return this.http.get<any[]>(this.urlEndpoint);
   }
   
 }

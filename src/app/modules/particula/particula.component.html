@@ -23,7 +23,7 @@
 
     
      
-       
+ <i class="pi pi-shopping-cart" style="font-size: 2rem; margin:auto; color: white;" (click)="showDialog3()"></i>
 
     <p-button type="button" class="mr-20" (click)="sidebarVisible2 = true" icon="pi pi-bars" class="margen" severity="secondary"></p-button>
 <div>
@@ -68,10 +68,10 @@
 
 
   
-  <div  (click)="showDialog3()" style="display: flex; margin-top: 10%;">
+  <!-- <div  (click)="showDialog3()" style="display: flex; margin-top: 10%;">
     
-    <p-button [style]="{'width': '110%'}" > <i class="pi pi-shopping-cart" style="font-size: 1.5rem; margin-right: 2%;"></i> Carrito  de compras</p-button>
-  </div>
+  
+  </div> -->
 
   <div style="display: flex;  margin-top: 10%;">
   
@@ -97,29 +97,58 @@
 
 
 <p-dialog 
-header="Edit Profile" 
+header="Tu informacion" 
 [modal]="true"
 [(visible)]="visible2" 
 position="center" 
+[closable]="false"
 [style]="{ width: '25rem' }">
-    <span class="p-text-secondary block mb-5">
-        Update your information.
-    </span>
+ 
     <div class="flex align-items-center gap-3 mb-3">
         <label for="username" class="font-semibold w-6rem">
-            Username
+            Nombre
         </label>
-        <input pInputText id="username" class="flex-auto" autocomplete="off" />
+        <input pInputText id="username" class="flex-auto"  [value]="usuario?.nombre" disabled  />
     </div>
     <div class="flex align-items-center gap-3 mb-5">
         <label for="email" class="font-semibold w-6rem">
-            Email
+            Correo
         </label>
-        <input pInputText id="email" class="flex-auto" autocomplete="off" />
+        <input pInputText id="email" class="flex-auto" autocomplete="off" [value]="usuario?.correo" disabled  />
     </div>
+    <div class="flex align-items-center gap-3 mb-3">
+      <label for="username" class="font-semibold w-6rem">
+          Telefono
+      </label>
+      <input pInputText id="username" class="flex-auto" autocomplete="off"  [value]="usuario?.celular" disabled />
+  </div>
+  <div *ngIf="rol !== 'c'"  class="flex align-items-center gap-3 mb-3">
+    <label for="username" class="font-semibold w-6rem">
+        RFC
+    </label>
+    <input pInputText id="username" class="flex-auto" autocomplete="off"   [value]="usuario?.rfc" disabled/>
+</div>
+<div class="flex align-items-center gap-3 mb-3">
+  <label for="username" class="font-semibold w-6rem">
+    <i class=" pi pi-map"></i> Domicilio
+  </label>
+  <div class="input_group">
+        <div *ngFor="let direccion of direccionesU">
+          <label>
+            {{ direccion.calle }}, {{ direccion.colonia }}, {{ direccion.cp }}, {{ direccion.num_exterior }}
+          </label>
+          <br>
+        </div>
+    
+</div>
+</div>
+
     <div class="flex justify-content-end gap-2">
-        <p-button label="Cancel" severity="secondary" (click)="visible = false" />
-        <p-button label="Save" (click)="visible = false" />
+    
+        <p-button label="Cancel" severity="secondary" [style]="{'margin-right': '20px'}"   (click)="visible2 = false" />
+      
+      
+        <p-button class="create-account-button" (click)="cambiarContra()" severity="help" >C. Contr.</p-button>
     </div>
 </p-dialog>
 <p-dialog 
@@ -151,3 +180,36 @@ position="center"
 
   <p-button (click)="pagos()">Pagar</p-button>
 </p-dialog>
+
+
+
+
+<p-dialog header="Cambio de contraseña"[(visible)]="visibleCContra" [modal]="true" [style]="{ width: '40vw' }"      [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"  [draggable]="false" [resizable]="false" [closable]="false">
+  <form  [formGroup]="cambioContra">
+    <div *ngIf="cambioContra.get('correo')?.touched && cambioContra.get('correo')?.errors?.['required']" style="font-size: 0.8rem; color: red;">El correo es obligatorio.</div>
+    <div class="flex-column">
+      <div class=" gap-2">
+        <label for="username">Contraseña:</label>
+        <p-password formControlName="contraseña" [toggleMask]="true" class="input-widthp" [style]="{'width':'90%'}" [inputStyle]="{'width':'100%'}" ></p-password>
+        <div *ngIf="cambioContra.get('contraseña')?.touched && cambioContra.get('contraseña')?.errors?.['required']" style="font-size: 0.8rem; color: red;">La contraseña es obligatoria.</div>
+      </div>
+      <div class=" gap-2">
+        <label for="username">Valida la contraseña:</label>
+        <p-password formControlName="validarContraseña" [toggleMask]="true" class="input-widthp"  [style]="{'width':'90%'}"  [inputStyle]="{'width':'100%'}"  [feedback]="false"></p-password>
+        <div *ngIf="cambioContra.get('validarContraseña')?.touched &&cambioContra.get('validarContraseña')?.errors?.['required']" style="font-size: 0.8rem; color: red;">Debe validar la contraseña.</div>
+        <div *ngIf="cambioContra.get('contraseña')?.value !== cambioContra.get('validarContraseña')?.value && cambioContra.get('validarContraseña')?.touched" style="font-size: 0.8rem; color: red;">Las contraseñas no coinciden.</div>
+      </div>
+    </div>
+  </form>
+  
+  <ng-template pTemplate="footer">
+    <div class="botones-fotter">
+      <p-button class="create-account-button" label="Aceptar" [raised]="true" severity="success"
+      size="small" [disabled]="cambioContra.invalid || cambioContra.get('contraseña')?.value !== cambioContra.get('validarContraseña')?.value" ></p-button>
+  
+      <p-button label="Cancelar" [raised]="true" severity="danger" (click)="visibleCContra=false" size="small"></p-button>
+    </div>
+  </ng-template>
+  
+  </p-dialog>
+  

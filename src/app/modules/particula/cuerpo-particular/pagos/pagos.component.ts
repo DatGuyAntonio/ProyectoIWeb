@@ -38,6 +38,7 @@ export class PagosComponent {
     this.direcciones();
    
   }
+  
 direcciones(){
   let correo = this.usuario.correo;
   this.clienteService.getDirecciones(correo).subscribe(

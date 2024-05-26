@@ -10,6 +10,7 @@ import { MessageService } from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { MueblesService } from '../../../../Services/muebles/muebles.service';
 import { TabMenuModule } from 'primeng/tabmenu';
+import { ModeloService } from '../../../../Services/Modelo/modelo.service';
 @Component({
   selector: 'app-camas',
   standalone: true,
@@ -19,8 +20,8 @@ import { TabMenuModule } from 'primeng/tabmenu';
   styleUrl: './camas.component.scss'
 })
 export class CamasComponent {
-
-  selectedImage: string | ArrayBuffer | null = null;
+  prediccion:any;
+  selectedImage: File | undefined;
   mostrarSubirImagen: boolean = false;
   categorias:any[]=[];
  productos:any[]=[];
@@ -28,7 +29,8 @@ export class CamasComponent {
  mueblesCarrito: { sku: string, cantidad: number, precio: number }[] = [];
  verContendio =true;
  VerResultado=false;
- constructor(private carritoService: CarritoService, private messageService: MessageService, private muebleService :MueblesService ) { }
+  fileToUpload: any;
+ constructor(private carritoService: CarritoService, private messageService: MessageService, private muebleService :MueblesService, private modeloService:ModeloService ) { }
  
   ngOnInit(){
 
@@ -60,25 +62,20 @@ this.cargaMuebles();
     );
   }
   onFileSelected(event: any): void {
-    // Verificar si se seleccionó un archivo de imagen
-    if (event.files && event.files.length > 0) {
-      const file = event.files[0];
-
-      // Leer el archivo como un objeto de URL
+    const file = event.files[0];
+    if (file) {
+      this.fileToUpload = file;
       const reader = new FileReader();
-      reader.onload = () => {
-       
-        // Actualizar la vista previa con la URL de la imagen
-        this.selectedImage = reader.result;
+      reader.onload = (e: any) => {
+        this.selectedImage = e.target.result;
       };
       reader.readAsDataURL(file);
-      
     }
   }
 
   resetPreview(): void {
     // Restablecer la vista previa de la imagen y permitir subir una nueva imagen
-    this.selectedImage = null;
+    this.selectedImage = undefined;
     const fileUploadInput = document.getElementById('fileUploadInput') as HTMLInputElement;
     if (fileUploadInput) {
       fileUploadInput.value = ''; // Limpiar la selección de archivo
@@ -131,6 +128,20 @@ enviarDatos() {
 mostrarResultadosIa(){
   this.verContendio=false;
   this.VerResultado=true;
+
+ 
+  if (this.fileToUpload) {
+    this.modeloService.subirArchivo(this.fileToUpload).subscribe(
+      response => {
+        console.log('Respuesta del servidor:', response.predicted_class);
+        this.prediccion=response.predicted_class;
+      },
+      error => {
+        console.error('Error al subir la imagen:', error);
+      }
+    );
+  }
 }
+
 
 }

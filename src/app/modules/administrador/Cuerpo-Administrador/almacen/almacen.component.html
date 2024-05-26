@@ -1,26 +1,48 @@
 <h1>Categoria de muebles</h1>
     <div class="card">
-      <p-tabView>
-        <p-tabPanel *ngFor="let categoria of categorias" [header]="categoria.nombre">
-            <div *ngFor="let producto of categoria.productos">
-                <div>{{ producto.nombre }}</div>
-                <div>{{ producto.precio }}</div>
-                <div>{{ producto.cantidad }}</div>
-                <div>{{ producto.descripcion }}</div>
-            </div>
-        </p-tabPanel>
-    </p-tabView>
+      <p-dropdown  [options]="categorias"  (onChange)="onCategoriaSeleccionada($event)" ></p-dropdown>
+      <p-table [value]="muebles" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true"
+  [rows]="1" [rowsPerPageOptions]="[1, 10, 20]">
+  <ng-template pTemplate="header">
+    <tr>
+      <th>codigo</th>
+      <th>categoria</th>
+      <th>subCategoria</th>
+      <th>descripcion</th>
+      <th>cantidad</th>
+      <th>precio</th>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="body" let-mueble let-i="index">
+    <ng-container *ngIf="categoriaSeleccionada === 'Todos'">
+      <!-- Mostrar todos los muebles si se selecciona la opción "Todos" -->
+      <tr>
+        <td>{{ mueble.codigo }}</td>
+        <td>{{ mueble.categoria }}</td>
+        <td>{{ mueble.subCategoria }}</td>
+        <td>{{ mueble.descripcion }}</td>
+        <td>{{ mueble.cantidad }}</td>
+        <td>{{ mueble.precio }}</td>
+      </tr>
+    </ng-container>
+    <ng-container *ngIf="categoriaSeleccionada !== 'Todos'">
+      <!-- Aplicar filtro por categoría -->
+      <ng-container *ngIf="mueble.categoria === categoriaSeleccionada">
+        <tr>
+          <td>{{ mueble.codigo }}</td>
+          <td>{{ mueble.categoria }}</td>
+          <td>{{ mueble.subCategoria }}</td>
+          <td>{{ mueble.descripcion }}</td>
+          <td>{{ mueble.cantidad }}</td>
+          <td>{{ mueble.precio }}</td>
+        </tr>
+      </ng-container>
+    </ng-container>
+  </ng-template>
+</p-table>
+       
+   
   </div>
 
 
-  <!-- <div class="agregar-producto">
-    <h2>Agregar Nuevo Producto</h2>
-    <label for="nombre">Nombre:</label>
-    <input type="text" id="nombre" >
-    <label for="categoria">Categoría:</label>
-    <select id="categoria">
-      <option *ngFor="let categoria of categorias" [value]="categoria.nombre">{{ categoria.nombre }}</option>
-    </select>
-    <button (click)="agregarProducto()">Agregar Producto</button>
-  </div>
-   -->
+  

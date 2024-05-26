@@ -1,4 +1,4 @@
-import { Component, HostListener } from '@angular/core';
+import { Component, HostListener} from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button'
 import { DialogModule } from 'primeng/dialog';
@@ -8,12 +8,13 @@ import { FileUploadModule} from 'primeng/fileupload';
 import { ToastModule } from 'primeng/toast';
 import { Router } from '@angular/router';
 import { CarritoService } from '../../Services/Carrito/carrito.service';
-
+import { ClienteService } from '../../Services/cliente/cliente.service';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { PasswordModule } from 'primeng/password';
 import Swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
-
-
+import { FormGroup, FormsModule, FormControl, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { InputTextModule } from 'primeng/inputtext';
 interface UploadEvent {
   originalEvent: Event;
   files: File[];
@@ -28,7 +29,7 @@ interface UploadEvent {
             FileUploadModule,
             ToastModule,
             ConfirmDialogModule, CommonModule,
-            ToastModule],
+            ToastModule, FormsModule, PasswordModule, ReactiveFormsModule,InputTextModule ],
             providers: [ MessageService],
   templateUrl: './particula.component.html',
   styleUrl: './particula.component.scss',
@@ -42,7 +43,7 @@ export class ParticulaComponent {
     this.ismenuFixed=window.pageYOffset > 200;
     this.isHeaderFixed = window.pageYOffset > 200;
   }
-  
+  direccionesU: any[] = [];
   position: string = 'Left';
   visible: boolean = false;
   positionUser: string = 'Rigth';
@@ -51,7 +52,10 @@ export class ParticulaComponent {
   categorias:any;
   rol: any;
   carrito:any
-  constructor(public router: Router, private carritoService: CarritoService,  private messageService: MessageService) {
+  usuario:any
+  cambioContra: FormGroup =new FormGroup({});
+  visibleCContra: boolean = false;
+  constructor(private formBuilder: FormBuilder, public router: Router, private carritoService: CarritoService,  private messageService: MessageService, private clienteService:ClienteService) {
     this.carritoService.carritoActual.subscribe(mueblesCarrito => {
       // Haz algo con mueblesCarrito
      this.carrito=mueblesCarrito;
@@ -67,6 +71,12 @@ export class ParticulaComponent {
   }
  
   ngOnInit() {
+
+    this.cambioContra = this.formBuilder.group({
+      contraseña:['', [Validators.required, Validators.minLength(8)]],
+      validarContraseña:['',[Validators.required, Validators.minLength(8)]]
+    });
+
     this.categorias = [
       { label: 'Camas' },
       { label: 'Mesas de noche' },
@@ -82,6 +92,7 @@ export class ParticulaComponent {
     } else {
       const usuario = JSON.parse(usuarioString);
       this.rol = usuario.rol;
+      this.usuario=usuario;
       console.log(this.rol);
       this.router.navigate(['particula', 'muebles']);
     }
@@ -110,7 +121,9 @@ export class ParticulaComponent {
 
   showDialog2() {
 
+    console.log(this.usuario);
       this.visible2 = true;
+      this.direcciones()
   }
 
 
@@ -162,6 +175,22 @@ export class ParticulaComponent {
 regresar(){
   this.router.navigate(['particula', 'muebles']);
 }
+direcciones(){
 
+  let correo = this.usuario.correo;
+  this.clienteService.getDirecciones(correo).subscribe(
+    data => {
+      this.direccionesU=data;
+        
+      console.log(this.direccionesU);
+    },
+    error => {
+     
+    }
+  );
+}
+cambiarContra(){
+  this.visibleCContra=true
+}
 
 }

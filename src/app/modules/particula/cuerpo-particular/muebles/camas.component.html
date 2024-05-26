@@ -145,7 +145,7 @@
       <!-- <div class="grid "> -->
 
       <!-- <div *ngFor="let producto of productos" class="producto"> -->
-      <ng-container *ngIf="(producto.categoria === 'escritorio' || producto.categoria === 'Escritorios')">
+      <ng-container *ngIf="(producto.categoria === 'escritorios' || producto.categoria === 'Escritorios')">
 
 
         <div style="height: 50%; display: flex; margin-bottom: 15px;">
@@ -348,7 +348,7 @@
 <div *ngIf="VerResultado" class="grid ">
 
   <div *ngFor="let producto of productos" class="producto">
-<ng-container *ngIf="(producto.categoria === 'sillas' || producto.categoria === 'Sillas')">
+<ng-container *ngIf="producto.categoria === prediccion ">
 
 
   <div style="height: 50%; display: flex; margin-bottom: 15px;">
