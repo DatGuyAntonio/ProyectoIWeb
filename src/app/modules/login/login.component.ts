@@ -99,7 +99,7 @@ export class LoginComponent {
          }
       },
       error => {
-        console.error('Error al obtener los datos:', error);
+        
       })
     
    }
@@ -135,12 +135,12 @@ export class LoginComponent {
 
             localStorage.setItem('usuario', JSON.stringify(this.datosUsuario));
          }else{
-          console.log('invalida papu')
+        
          }
         }
       },
       error => {
-        console.error('Error al obtener los datos:', error);
+        
       }
     );
     

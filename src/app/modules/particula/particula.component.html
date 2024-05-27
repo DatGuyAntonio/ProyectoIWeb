@@ -79,7 +79,7 @@
   </div>
 
   <div *ngIf="rol !== 'c'" style="display: flex; margin-top: 10%;">
-    <p-button [style]="{'width': '170%'}">
+    <p-button [style]="{'width': '170%'}" (click)="visibleP=true">
       <i class="pi pi-file-edit" style="font-size: 1.5rem; margin-right: 2%;"></i>
       A medida
     </p-button>
@@ -148,7 +148,7 @@ position="center"
         <p-button label="Cancel" severity="secondary" [style]="{'margin-right': '20px'}"   (click)="visible2 = false" />
       
       
-        <p-button class="create-account-button" (click)="cambiarContra()" severity="help" >C. Contr.</p-button>
+        <p-button class="create-account-button" (click)="visibleCContra=true" severity="help" >C. Contr.</p-button>
     </div>
 </p-dialog>
 <p-dialog 
@@ -213,3 +213,28 @@ position="center"
   
   </p-dialog>
   
+
+  
+<p-dialog header="Pedido a medida"[(visible)]="visibleP" [modal]="true" [style]="{ width: '60vw' }"      [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"  [draggable]="false" [resizable]="false" [closable]="false">
+  <div class="card flex justify-content-center">
+   <p>Ingrese las especificaciones del mueble a medida</p>
+   <p>Tipo de mueble, medidas, acabados y materiales</p>
+  <textarea 
+  rows="5"
+  cols="30"
+  pInputTextarea 
+  style="width: 100%;  resize: none;"
+  [(ngModel)]="value"
+>
+</textarea>
+  </div>
+  <ng-template pTemplate="footer">
+    <div class="botones-fotter">
+      <p-button  class="create-account-button" label="Aceptar" [raised]="true" severity="success"
+      size="small" (click)="SolicitarPedido()"   [disabled]="value === undefined" ></p-button>
+  
+      <p-button label="Cancelar" [raised]="true" severity="danger" (click)="visibleP=false" size="small"></p-button>
+    </div>
+  </ng-template>
+  
+  </p-dialog>

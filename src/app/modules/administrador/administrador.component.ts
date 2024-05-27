@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-administrador',
   standalone: true,
@@ -56,6 +57,41 @@ cuerpo(label: string | undefined) {
   
     default:
       this.router.navigate(['administrador', 'pedidos']);
+  }
+}
+
+
+
+LogOut(){
+    
+  let usuario = localStorage.getItem('usuario');
+  // Verifica si los datos del usuario existen
+  if (usuario !== null) {
+      Swal.fire({
+          title: "¿Desea cerrar sesión?",
+          text: "“¡No podrás revertir esto!",
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          cancelButtonText:"NO",
+          confirmButtonText: "SI"
+      }).then((result) => {
+          if (result.isConfirmed) {
+              // Borra los datos del usuario del localStorage
+              localStorage.removeItem('usuario');
+
+              // Redirige al usuario al login
+              this.router.navigate(['/login']);
+
+              Swal.fire({
+                  
+                  text: "Session cerrada con exito.",
+                  icon: "success"
+              });
+          }
+      
+      });
   }
 }
 }

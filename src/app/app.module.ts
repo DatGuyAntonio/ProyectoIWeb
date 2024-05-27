@@ -5,10 +5,11 @@ import { ButtonModule } from 'primeng/button';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
+import { SoloNumerosDirective } from './directives/solo-numeros.directive';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [SoloNumerosDirective],
   imports: [
     CommonModule,
     LoginModule,

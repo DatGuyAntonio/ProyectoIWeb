@@ -25,27 +25,27 @@ export class PagosComponent {
     this.carritoService.carritoActual.subscribe(mueblesCarrito => {
       // Haz algo con mueblesCarrito
      this.carrito=mueblesCarrito;
-     console.log(this.carrito);
+   
     });
   }
   ngOnInit() {
     const usuarioString = localStorage.getItem('usuario');
     if (usuarioString) {
       this.usuario = JSON.parse(usuarioString);
-      console.log(this.usuario);
+      
 
     }
     this.direcciones();
    
   }
-  
+
 direcciones(){
   let correo = this.usuario.correo;
   this.clienteService.getDirecciones(correo).subscribe(
     data => {
       this.direccionesU=data;
         
-      console.log(this.direccionesU);
+     
     },
     error => {
      

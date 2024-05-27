@@ -63,10 +63,10 @@ cargaUsuario(){
   this.clienteService.getTodos().subscribe(
     data => {
       this.usuarios = data;
-      console.log(this.usuarios)
+   
     },
     error => {
-      console.error('Error al obtener los datos:', error);
+      
     }
   );
 }
@@ -113,7 +113,7 @@ confirm() {
 
  Desactivar(rowData:any){
   let correo=rowData.correo;
-  console.log(correo);
+
 
   this.confirmationService.confirm({
     header: 'Confirmation',

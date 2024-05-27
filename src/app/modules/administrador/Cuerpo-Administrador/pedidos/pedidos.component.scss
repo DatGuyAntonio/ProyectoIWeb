@@ -41,7 +41,7 @@
     }
 
     .pendiente {
-        color: red;
+        color: orange;
     }
 
     .completado {
@@ -50,6 +50,9 @@
 
     .proceso {
         color: blue;
+    }
+    .cancelado{
+        color: red;
     }
 }
 

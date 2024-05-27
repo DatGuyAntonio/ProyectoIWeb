@@ -56,7 +56,7 @@
       <div class="flex-column">
         <div class=" gap-2">
           <label for="username">Nombre:</label>
-          <input formControlName="nombre" class="input-width" type="text" pInputText />
+          <input formControlName="nombre" class="input-width" type="text" pInputText onkeypress="return /[a-zA-Z]/.test(event.key)" />
         </div>
         <div class=" gap-2">
           <label for="username">Celular:</label>

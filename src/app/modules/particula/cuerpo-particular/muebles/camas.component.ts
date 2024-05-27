@@ -44,7 +44,6 @@ this.cargaMuebles();
       
   //   ];
 
-    console.log(this.productos)
 
   }
 
@@ -54,10 +53,10 @@ this.cargaMuebles();
     this.muebleService.getMuebles() .subscribe(
       data => {
         this.productos = data;
-        console.log(this.productos)
+       
       },
       error => {
-        console.error('Error al obtener los datos:', error);
+       
       }
     );
   }
@@ -122,7 +121,7 @@ agregarMueble(producto: any) {
 
 enviarDatos() {
   this.carritoService.actualizarCarrito(this.mueblesCarrito);
-  console.log("se Actualizo el carrito ")
+ 
 }
 
 mostrarResultadosIa(){
@@ -133,11 +132,11 @@ mostrarResultadosIa(){
   if (this.fileToUpload) {
     this.modeloService.subirArchivo(this.fileToUpload).subscribe(
       response => {
-        console.log('Respuesta del servidor:', response.predicted_class);
+      
         this.prediccion=response.predicted_class;
       },
       error => {
-        console.error('Error al subir la imagen:', error);
+       
       }
     );
   }

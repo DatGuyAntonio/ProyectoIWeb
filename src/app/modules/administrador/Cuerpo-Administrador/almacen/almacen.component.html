@@ -1,48 +1,118 @@
-<h1>Categoria de muebles</h1>
+
     <div class="card">
-      <p-dropdown  [options]="categorias"  (onChange)="onCategoriaSeleccionada($event)" ></p-dropdown>
-      <p-table [value]="muebles" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true"
-  [rows]="1" [rowsPerPageOptions]="[1, 10, 20]">
-  <ng-template pTemplate="header">
-    <tr>
-      <th>codigo</th>
-      <th>categoria</th>
-      <th>subCategoria</th>
-      <th>descripcion</th>
-      <th>cantidad</th>
-      <th>precio</th>
-    </tr>
-  </ng-template>
-  <ng-template pTemplate="body" let-mueble let-i="index">
-    <ng-container *ngIf="categoriaSeleccionada === 'Todos'">
-      <!-- Mostrar todos los muebles si se selecciona la opción "Todos" -->
-      <tr>
-        <td>{{ mueble.codigo }}</td>
-        <td>{{ mueble.categoria }}</td>
-        <td>{{ mueble.subCategoria }}</td>
-        <td>{{ mueble.descripcion }}</td>
-        <td>{{ mueble.cantidad }}</td>
-        <td>{{ mueble.precio }}</td>
-      </tr>
-    </ng-container>
-    <ng-container *ngIf="categoriaSeleccionada !== 'Todos'">
-      <!-- Aplicar filtro por categoría -->
-      <ng-container *ngIf="mueble.categoria === categoriaSeleccionada">
+
+      <div style="margin-bottom: 5%;" >
+      
+   
+      <p-dropdown 
+      [options]="categorias" 
+      [(ngModel)]="categoriaSeleccionada" 
+      placeholder="Seleccione una categoría" 
+      (onChange)="filtrarPorCategoria()">
+    </p-dropdown>
+    <p-button icon="pi pi-plus"  [style]="{'margin-left': '20px'}"></p-button>
+  </div>
+    <p-table [value]="mueblesFiltrados" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true"
+      [rows]="10" [rowsPerPageOptions]="[10, 20, 30]">
+      <ng-template pTemplate="header">
         <tr>
-          <td>{{ mueble.codigo }}</td>
-          <td>{{ mueble.categoria }}</td>
-          <td>{{ mueble.subCategoria }}</td>
-          <td>{{ mueble.descripcion }}</td>
-          <td>{{ mueble.cantidad }}</td>
-          <td>{{ mueble.precio }}</td>
+          <th>codigo</th>
+          <th>categoria</th>
+          <th>subCategoria</th>
+          <th>descripcion</th>
+          <th>cantidad</th>
+          <th>precio</th>
+          <th> Editar/Desactivas</th>
         </tr>
-      </ng-container>
-    </ng-container>
-  </ng-template>
-</p-table>
+      </ng-template>
+      <ng-template pTemplate="body" let-mueblesFiltrados>
+        <tr>
+          <td>{{ mueblesFiltrados.codigo }}</td>
+          <td>{{ mueblesFiltrados.categoria }}</td>
+          <td>{{ mueblesFiltrados.subCategoria }}</td>
+          <td>{{ mueblesFiltrados.descripcion }}</td>
+          <td>{{ mueblesFiltrados.cantidad }}</td>
+          <td>{{ mueblesFiltrados.precio }}</td>
+          <td>  
+            <div style="display: flex;">
+                <div style="margin-right: 1%;">
+                    <p-button severity="info"  (click)="CPrecio(mueblesFiltrados)" > <i class="pi pi-pencil"> Precio</i></p-button>
+                </div>
+                <div style="margin-right: 1%;">
+                  <p-button severity="info"  (click)="CStock(mueblesFiltrados)"   > <i class="pi pi-pencil"> Stock</i></p-button>
+                </div>
+                <div>
+                  <p-button  severity="secondary"  (click)="desMueble(mueblesFiltrados.codigo)">  <i class="pi pi-lock"> Desactivar</i></p-button>
+                </div>
+            </div>
+        </td>
+        </tr>
+      </ng-template>
+    </p-table>
        
    
   </div>
 
 
+
+  <p-dialog header="Cambiar precio" [(visible)]="visible" [modal]="true" [style]="{ width: '45vw'}" [draggable]="false" [resizable]="false" [closable]="false">
+
+ 
+    <div class="flex flex-column gap-2">
+      <label for="username">Nuevo Precio:</label>
+      <input style="max-width: 100%;" type="text" appSoloNumeros [formControl]="precioFormControl" [value]="mueblesFiltrados && mueblesFiltrados.length > 0 ? mueblesFiltrados[0]?.precio : null" />
+      <div *ngIf="precioFormControl.invalid && (precioFormControl.dirty || precioFormControl.touched)" class="alert alert-danger">
+        <div *ngIf="precioFormControl.errors && precioFormControl.errors['maxlength']">La longitud máxima es 4 caracteres.</div>
+        <div *ngIf="precioFormControl.errors && precioFormControl.errors['pattern']">Solo ingrese numeros.</div>
+
+
+      </div>
+    </div>
+      
+    <ng-template pTemplate="footer">
+      <div class="botones-fotter">
+        <p-button class="create-account-button" label="guardar Cambio" (click)="CambiarPrecio()" [raised]="true" severity="success"
+          size="small"></p-button>
+        <p-button label="Cancelar" [raised]="true" severity="danger" (click)="visible=false" size="small"></p-button>
+      </div>
+    </ng-template>
+  </p-dialog>
+
   
+
+  <p-dialog header="Cambiar Stock" [(visible)]="visibleE" [modal]="true" [style]="{ width: '45vw'}" [draggable]="false" [resizable]="false" [closable]="false">
+
+ 
+    <div class="flex flex-column gap-2">
+      <label for="username">Nuevo Stokc:</label>
+      <input style="max-width: 100%;" type="text" appSoloNumeros [formControl]="stockFormControl" [value]="mueblesFiltrados && mueblesFiltrados.length > 0 ? mueblesFiltrados[0]?.cantidad: null" />
+      <div *ngIf="stockFormControl.invalid && (stockFormControl.dirty || stockFormControl.touched)" class="alert alert-danger">
+        <div *ngIf="stockFormControl.errors && stockFormControl.errors['maxlength']">La longitud máxima es 4 caracteres.</div>
+        <div *ngIf="stockFormControl.errors && stockFormControl.errors['pattern']">Solo ingrese numeros.</div>
+
+
+      </div>
+    </div>
+      
+    <ng-template pTemplate="footer">
+      <div class="botones-fotter">
+        <p-button class="create-account-button" label="guardar Cambio"  (click)='CambiarStock()'[raised]="true" severity="success"
+          size="small"></p-button>
+        <p-button label="Cancelar" [raised]="true" severity="danger" (click)="visibleE=false" size="small"></p-button>
+      </div>
+    </ng-template>
+  </p-dialog>
+
+
+
+  <div class="card flex justify-content-center">
+    <p-toast></p-toast>
+    <p-confirmDialog>
+        <ng-template pTemplate="message" let-message>
+            <div class="flex flex-column align-items-center w-full gap-3 border-bottom-1 surface-border">
+                <i class="pi pi-exclamation-circle text-6xl text-primary-500"></i>
+                <p>{{ message.message }}</p>
+            </div>
+        </ng-template>
+    </p-confirmDialog>
+    </div>

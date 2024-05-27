@@ -16,12 +16,15 @@
                 <td>{{ rowData.nombre }}</td>
                 <td>{{ rowData.celular }}</td>
                 <td>{{ rowData.correo }}</td>    
-                <td *ngIf="rowData.rol === 'c'; else otherRole">
-                    Cliente
-                  </td>
-                  <ng-template #otherRole>
-                    <td>{{ rowData.rol }}</td>
-                  </ng-template>
+                <td *ngIf="rowData.rol === 'c'">
+                  Cliente
+                </td>
+                <td *ngIf="rowData.rol === 'e'">
+                  Empresa
+                </td>
+                <td *ngIf="rowData.rol === 'a'">
+                  Administrador
+                </td>
                   <td>{{rowData.domicilio.calle}}, {{rowData.domicilio.colonia}}, {{rowData.domicilio.cp}}, {{rowData.domicilio.num_Exterior}}</td>
                 <td>
                 
@@ -48,17 +51,17 @@
 
     <div class="flex flex-column gap-2">
       <label for="username">Nombre:</label>
-      <input style="max-width: 100%;" type="text" pInputText   [value]="rowData?.nombre" />
+      <input style="max-width: 100%;" type="text" pInputText   [value]="rowData?.nombre" disabled />
   
     </div>
     <div class="flex flex-column gap-2">
       <label for="username">Correo:</label>
-      <input style="max-width: 100%;" type="text" pInputText  [value]="rowData?.correo" />
+      <input style="max-width: 100%;" type="text" pInputText  [value]="rowData?.correo" disabled />
   
     </div>
     <div class="flex flex-column gap-2">
         <label for="username">telefono:</label>
-        <input style="max-width: 100%;" type="text" pInputText  [value]="rowData?.celular" />
+        <input style="max-width: 100%;" type="text" pInputText  [value]="rowData?.celular" disabled />
     
       </div>
     <div>
@@ -68,7 +71,7 @@
     </div>
     <div class="flex flex-column gap-2">
         <label for="username">direccion:</label>
-        <p-table [value]="[rowData.domicilio]"[columns]="dir" [tableStyle]="{ 'min-width': '20rem' }">
+        <p-table [value]="[rowData.domicilio]"[columns]="dir" [tableStyle]="{ 'min-width': '20rem' }" disabled>
           <ng-template pTemplate="header" let-columns>
             <tr>
                 <th *ngFor="let col of columns">

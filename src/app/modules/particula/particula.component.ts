@@ -15,6 +15,8 @@ import Swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
 import { FormGroup, FormsModule, FormControl, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { PedidoService } from '../../Services/pedido/pedido.service';
 interface UploadEvent {
   originalEvent: Event;
   files: File[];
@@ -29,7 +31,7 @@ interface UploadEvent {
             FileUploadModule,
             ToastModule,
             ConfirmDialogModule, CommonModule,
-            ToastModule, FormsModule, PasswordModule, ReactiveFormsModule,InputTextModule ],
+            ToastModule, FormsModule, PasswordModule, ReactiveFormsModule,InputTextModule,InputTextareaModule ],
             providers: [ MessageService],
   templateUrl: './particula.component.html',
   styleUrl: './particula.component.scss',
@@ -55,7 +57,10 @@ export class ParticulaComponent {
   usuario:any
   cambioContra: FormGroup =new FormGroup({});
   visibleCContra: boolean = false;
-  constructor(private formBuilder: FormBuilder, public router: Router, private carritoService: CarritoService,  private messageService: MessageService, private clienteService:ClienteService) {
+  visibleP:boolean=false;
+  value!: string;
+  correo:any;
+  constructor(private formBuilder: FormBuilder, public router: Router, private carritoService: CarritoService,  private messageService: MessageService, private clienteService:ClienteService, private pedidoService:PedidoService) {
     this.carritoService.carritoActual.subscribe(mueblesCarrito => {
       // Haz algo con mueblesCarrito
      this.carrito=mueblesCarrito;
@@ -93,7 +98,8 @@ export class ParticulaComponent {
       const usuario = JSON.parse(usuarioString);
       this.rol = usuario.rol;
       this.usuario=usuario;
-      console.log(this.rol);
+      this.correo= usuario.correo;
+     
       this.router.navigate(['particula', 'muebles']);
     }
   }   
@@ -121,7 +127,7 @@ export class ParticulaComponent {
 
   showDialog2() {
 
-    console.log(this.usuario);
+  
       this.visible2 = true;
       this.direcciones()
   }
@@ -130,7 +136,7 @@ export class ParticulaComponent {
   visible3: boolean = false;
 
   showDialog3() {
-      console.log(this.carrito);
+     
       this.visible3 = true;
   }
 
@@ -182,15 +188,36 @@ direcciones(){
     data => {
       this.direccionesU=data;
         
-      console.log(this.direccionesU);
+   
     },
     error => {
      
     }
   );
 }
-cambiarContra(){
-  this.visibleCContra=true
+SolicitarPedido(){
+   const bodypedido={
+
+    "correo": this.correo,
+    "detalle_Pedido": this.value
+   
+  }
+  this.pedidoService.postpedido(bodypedido).subscribe(
+    (data:any)=>{
+       if(data===false){
+         this.visibleP=false;
+         this.value='';
+         this.sidebarVisible2=false;
+        Swal.fire({
+          text: "Se creo con exito su pedido.",
+          icon: "success"
+      });
+       }
+    },
+    error => {
+      
+    })
 }
+
 
 }
