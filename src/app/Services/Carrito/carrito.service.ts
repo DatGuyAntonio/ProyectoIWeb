@@ -13,4 +13,8 @@ export class CarritoService {
   actualizarCarrito(mueblesCarrito: { sku: string, cantidad: number, precio: number }[]) {
     this.carrito.next(mueblesCarrito);
   }
+
+  resetearCarrito() {
+    this.carrito.next([]);
+  }
 }

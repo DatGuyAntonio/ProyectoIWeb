@@ -60,11 +60,7 @@ export class LoginComponent {
       validarContraseña:['',[Validators.required, Validators.minLength(8)]],
       
     })
-    this.cambioContra = this.formBuilder.group({
-      correo:['', [Validators.required, Validators.email]],
-      contraseña:['', [Validators.required, Validators.minLength(8)]],
-      validarContraseña:['',[Validators.required, Validators.minLength(8)]]
-    });
+    
   }
 
 
@@ -149,10 +145,6 @@ export class LoginComponent {
 
    }
 
-cambiarContra(){
-  this.visible2=true;
 
-
-}
    
 }

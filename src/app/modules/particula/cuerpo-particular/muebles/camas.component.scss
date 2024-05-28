@@ -28,6 +28,16 @@
     justify-content: space-between;
     gap: 20px;
   }
+
+  .gridR{
+    height: auto;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    width: 90%;
+    justify-content: space-between;
+    gap: 20px;
+  }
   
   .producto {
     margin-bottom: auto;

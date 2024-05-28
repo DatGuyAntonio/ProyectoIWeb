@@ -12,6 +12,7 @@ import { MensjaesComponent } from './modules/administrador/Cuerpo-Administrador/
 import { PedidosComponent } from './modules/administrador/Cuerpo-Administrador/pedidos/pedidos.component';
 import { UsuariosComponent } from './modules/administrador/Cuerpo-Administrador/usuarios/usuarios.component';
 import { PagosComponent } from './modules/particula/cuerpo-particular/pagos/pagos.component';
+import { VentaComponent } from './modules/administrador/Cuerpo-Administrador/venta/venta.component';
 export const routes: Routes = [
     {
       path: 'login', 
@@ -58,7 +59,11 @@ export const routes: Routes = [
           component: UsuariosComponent,
           loadChildren: () => import('./modules/administrador/Cuerpo-Administrador/usuarios/usuarios.module').then((m) => m.UsuariosModule)
         },
-      
+        {
+          path: 'ventas',
+          component: VentaComponent,
+          loadChildren: () => import('./modules/administrador/Cuerpo-Administrador/venta/venta.module').then((m) => m.VentaModule)
+        },
       ]
 
       },{

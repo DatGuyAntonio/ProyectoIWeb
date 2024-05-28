@@ -25,13 +25,9 @@
 
   
 
-  <div *ngIf="verContendio">
 
 
-
-
-
-  <div class="grid">
+  <div *ngIf="verContendio" class="grid">
 
     <div *ngFor="let producto of productos" class="producto">
       <ng-container *ngIf="(producto.categoria === 'cama' || producto.categoria === 'Cama')" class="grid">
@@ -71,26 +67,7 @@
           <p>{{ producto.descripcion }}</p>
         </p-panel>
       </ng-container>
-      <!-- </div>
-   -->
-
-      <!-- </div> -->
-
-
-
-      <!-- <hr>
-
-      <div class="divider-text">Armarios</div>
-
-      <hr> -->
-
-
-
-
-
-      <!-- <div class="grid"> -->
-
-      <!-- <div *ngFor="let producto of productos" class="producto"> -->
+  
       <ng-container *ngIf="(producto.categoria === 'armarios' || producto.categoria === 'Armarios')">
 
 
@@ -128,23 +105,7 @@
           <p>{{ producto.descripcion }}</p>
         </p-panel>
       </ng-container>
-      <!-- </div> -->
-
-
-      <!-- </div> -->
-
-
-
-
-        <!-- <hr>
-      
-  <div class="divider-text">Escritorios</div>
-
-  <hr> -->
-
-      <!-- <div class="grid "> -->
-
-      <!-- <div *ngFor="let producto of productos" class="producto"> -->
+     
       <ng-container *ngIf="(producto.categoria === 'escritorios' || producto.categoria === 'Escritorios')">
 
 
@@ -182,21 +143,7 @@
           <p>{{ producto.descripcion }}</p>
         </p-panel>
       </ng-container>
-      <!-- </div> -->
-
-
-      <!-- </div> -->
-
-
-      <!-- <hr>
-    
-  <div class="divider-text">Mesas de Centro</div>
-
-  <hr> -->
-
-      <!-- <div class="grid"> -->
-      <!--     
-    <div *ngFor="let producto of productos" class="producto"> -->
+      
       <ng-container *ngIf="(producto.categoria === 'centro' || producto.categoria === 'Centro')">
 
 
@@ -234,22 +181,7 @@
           <p>{{ producto.descripcion }}</p>
         </p-panel>
       </ng-container>
-      <!-- </div> -->
-
-
-      <!-- </div> -->
-
-
-
-      <!-- <hr>
-    
-  <div class="divider-text">Mesas de Noche</div>
-
-  <hr> -->
-
-      <!-- <div class="grid"> -->
-
-      <!-- <div *ngFor="let producto of productos" class="producto"> -->
+      
       <ng-container *ngIf="(producto.categoria === 'noche' || producto.categoria === 'Noche')">
 
 
@@ -287,21 +219,7 @@
           <p>{{ producto.descripcion }}</p>
         </p-panel>
       </ng-container>
-      <!-- </div> -->
-
-
-      <!-- </div> -->
-
-
-      <!-- <hr>
-    
-  <div class="divider-text">Sillas</div>
-
-  <hr> -->
-
-      <!-- <div class="grid margenArriba">
-     -->
-      <!-- <div *ngFor="let producto of productos" class="producto"> -->
+   
       <ng-container *ngIf="(producto.categoria === 'sillas' || producto.categoria === 'Sillas')">
 
 
@@ -345,7 +263,7 @@
   </div>
 </div>
 
-<div *ngIf="VerResultado" class="grid ">
+<div *ngIf="VerResultado" class="gridR ">
 
   <div *ngFor="let producto of productos" class="producto">
 <ng-container *ngIf="producto.categoria === prediccion ">
@@ -388,4 +306,4 @@
   </div>
 </div>
 
-</div>
+

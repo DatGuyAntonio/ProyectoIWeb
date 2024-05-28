@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { ClienteService } from '../../../../Services/cliente/cliente.service';
 import { CarritoService } from '../../../../Services/Carrito/carrito.service';
 import { ButtonModule } from 'primeng/button';
+import { VentaService } from '../../../../Services/venta/venta.service';
+import Swal from 'sweetalert2';
 declare var paypal: any;
 @Component({
   selector: 'app-pagos',
@@ -16,12 +18,9 @@ export class PagosComponent {
   usuario:any;
   carrito:any;
   direccionesU: any[] = [];
-  metodosDePago: any[] = [
-    { nombre: 'Tarjeta de Crédito', descripcion: 'Visa, MasterCard, American Express' },
-    { nombre: 'PayPal', descripcion: 'Paga fácilmente usando tu cuenta de PayPal' },
-    { nombre: 'Transferencia Bancaria', descripcion: 'Transferencia directa desde tu banco' }
-  ];
-  constructor( private clienteService:ClienteService,private carritoService: CarritoService) { 
+  total:any;
+  lineaVenta: { codigo: string, precio: number, cantidad: number }[] = [];
+  constructor( private clienteService:ClienteService,private carritoService: CarritoService, private ventaService:VentaService) { 
     this.carritoService.carritoActual.subscribe(mueblesCarrito => {
       // Haz algo con mueblesCarrito
      this.carrito=mueblesCarrito;
@@ -36,8 +35,9 @@ export class PagosComponent {
 
     }
     this.direcciones();
-   
-  }
+   this.calculatotal();
+ 
+    }
 
 direcciones(){
   let correo = this.usuario.correo;
@@ -75,18 +75,63 @@ ngAfterViewInit() {
           purchase_units: [{
             amount: {
               currency_code: 'MXN',
-              value: '100.00'
+              value: this.total
             }
           }]
         });
       },
       onApprove: (data: any, actions: any) => {
         return actions.order.capture().then((details: any) => {
-          alert('Transacción completada por ' + details.payer.name.given_name);
+            this.venta();
         });
       }
     }).render('#paypal-button-container');
   });
+}
+
+calculatotal(){
+  const totalReduce = this.carrito.reduce((acc: number, item: { cantidad: number; precio: number }) => {
+    return acc + (item.cantidad * item.precio);
+}, 0);
+this.total=totalReduce;
+console.log('Total usando reduce:', totalReduce);
+
+ 
+}
+
+venta(){
+ console.log(1);
+  this.lineaVenta = this.carrito.map((item: { sku: any; precio: any; cantidad: any; }) => ({
+    codigo: item.sku,
+    precio: item.precio,
+    cantidad: item.cantidad
+  }));
+  
+  console.log('lineaVenta:', this.lineaVenta);
+  const bodyVenta={
+    "correo": this.usuario.correo,
+    "lineaVenta": 
+     this.lineaVenta
+    ,
+    "total":this.total
+  }
+  
+  console.log(bodyVenta);
+
+  this.ventaService.postVenta(bodyVenta).subscribe(
+    (data:any)=>{
+       if(data===true){
+        this.carritoService.resetearCarrito();
+        Swal.fire({
+          text: "Se creo con exito su pedido.",
+          icon: "success"
+      });
+       }
+    },
+    error => {
+      
+    })
+
 }
 
 }

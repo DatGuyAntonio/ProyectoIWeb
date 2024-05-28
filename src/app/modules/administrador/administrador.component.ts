@@ -13,6 +13,7 @@ import Swal from 'sweetalert2';
 export class AdministradorComponent {
   items: MenuItem[] = [
     { label: 'Pedidos' },
+    { label: 'Ventas' },
     { label: 'Usuarios' },
     { label: 'Mensajes' },
     { label: 'Almacen' }
@@ -38,6 +39,10 @@ cuerpo(label: string | undefined) {
     case 'Pedidos':
       
       this.router.navigate(['administrador', 'pedidos']); 
+      break;
+      case 'Ventas':
+      
+      this.router.navigate(['administrador', 'ventas']); 
       break;
     case 'Usuarios':
       

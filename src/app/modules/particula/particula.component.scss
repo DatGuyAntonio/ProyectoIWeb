@@ -78,3 +78,32 @@
 .small-text-button .p-button-label {
   font-size: 12px; /* Ajusta este valor según sea necesario */
 }
+
+
+.input-widthp{
+  width: 80% !important;
+}
+
+.input-widthD{
+  width: 50% !important;
+}
+
+
+@media (max-width: 768px) {
+  .formW {
+    max-width: 100% !important;
+  }
+  .flex-column {
+    flex-direction: column;
+    width: 100%;
+  }
+  .input-width {
+    width: 100% !important;
+  }
+  .input-widthp {
+    width: 100% !important;
+  }
+  .input-widthD{
+    width: 100%;
+  }
+}

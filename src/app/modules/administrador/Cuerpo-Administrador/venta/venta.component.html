@@ -1,0 +1,24 @@
+<div class="container">
+
+
+<h1>Ventas</h1>
+<div class="grid-container">
+    <div class="card pedido" *ngFor="let venta of ventas">
+        <div class="pedido-header">
+            <h2>Venta #{{ venta.folio }}</h2>
+            
+        </div>
+        <p>Cliente: {{ venta.correo }}</p>
+   
+       
+            <h3>productos:</h3>
+            <ul>
+                <li *ngFor="let lineaVenta of venta.lineaVenta">
+                  Código: {{ lineaVenta.codigo }}, Cantidad: {{ lineaVenta.cantidad }}, Precio: {{ lineaVenta.precio }}
+                </li>
+              </ul>
+           <h3>Total:</h3>
+           <p>{{ venta.total | currency:'USD':'symbol':'1.2-2' }}</p>
+    </div>
+</div>
+</div>

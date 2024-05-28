@@ -60,6 +60,9 @@ export class ParticulaComponent {
   visibleP:boolean=false;
   value!: string;
   correo:any;
+  MNuevaD:boolean=false;
+  dirrecion: FormGroup =new FormGroup({});
+  mostrarHijo: boolean = false;
   constructor(private formBuilder: FormBuilder, public router: Router, private carritoService: CarritoService,  private messageService: MessageService, private clienteService:ClienteService, private pedidoService:PedidoService) {
     this.carritoService.carritoActual.subscribe(mueblesCarrito => {
       // Haz algo con mueblesCarrito
@@ -76,11 +79,21 @@ export class ParticulaComponent {
   }
  
   ngOnInit() {
-
+    if (this.router.isActive('/particula/pagos', true)) {
+      this.mostrarHijo = true;
+    }
     this.cambioContra = this.formBuilder.group({
       contraseña:['', [Validators.required, Validators.minLength(8)]],
       validarContraseña:['',[Validators.required, Validators.minLength(8)]]
     });
+
+    this.dirrecion = this.formBuilder.group({
+      cp:['', [Validators.required,  Validators.minLength(5), Validators.maxLength(5)]],
+      calle:['', [Validators.required]],
+      colonia:['', [Validators.required]],
+      numCasa:['', [Validators.required]]
+    });
+
 
     this.categorias = [
       { label: 'Camas' },
@@ -218,6 +231,19 @@ SolicitarPedido(){
       
     })
 }
+agregarDireccion(){
+  const correo=this.correo;
 
+  const direccion={
+    "calle": this.dirrecion.controls['calle'].value,
+    "colonia": this.dirrecion.controls['colonia'].value,
+    "cp":  this.dirrecion.controls['cp'].value,
+    "num_Exterior":  this.dirrecion.controls['numCasa'].value
+  }
+
+  console.log(direccion, correo)
+
+  
+}
 
 }

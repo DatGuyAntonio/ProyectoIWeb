@@ -68,10 +68,10 @@
 
 
   
-  <!-- <div  (click)="showDialog3()" style="display: flex; margin-top: 10%;">
+  <div  (click)="MNuevaD=true" style="display: flex; margin-top: 10%;">
     
-  
-  </div> -->
+  <p-button > <i class="pi pi-map"></i> Nueva direccion</p-button>
+  </div>
 
   <div style="display: flex;  margin-top: 10%;">
   
@@ -238,3 +238,46 @@ position="center"
   </ng-template>
   
   </p-dialog>
+
+
+
+  
+
+<p-dialog header="Agregar direccion" [(visible)]="MNuevaD" [modal]="true" [style]="{ width: '30vw' }"      [breakpoints]="{ '1199px': '75vw', '575px': '90vw' }"  [draggable]="false" [resizable]="false" [closable]="false">
+  <form [formGroup]="dirrecion" class="formW">
+   
+        <label>Domicilio</label>
+        <div >
+          <div class="flex-column">
+            <div class="flex-column gap-2">
+              <label for="username">CP:</label>
+              <input formControlName="cp" class="input-widthD" type="text" pInputText minlength="5" maxlength="5" />
+            </div>
+            <div class="flex-column gap-2">
+              <label for="username">Número de casa:</label>
+              <input formControlName="numCasa"  class="input-width" type="text" pInputText maxlength="10" />
+            </div>
+          </div>
+          <div class="flex-column">
+            <div class=" gap-2">
+              <label for="username">Calle:</label>
+              <input formControlName="calle" class="input-width" type="text" pInputText />
+            </div>
+            <div class=" gap-2">
+              <label for="username">Colonia:</label>
+              <input formControlName="colonia"  class="input-width" type="text" pInputText />
+            </div>
+          </div>
+        </div>
+    
+  
+  </form>
+    <ng-template pTemplate="footer">
+    <div class="botones-fotter">
+      <p-button class="create-account-button" label="Agregar direccion" (click)= "agregarDireccion()" [raised]="true" severity="success"
+      size="small"  ></p-button>
+
+      <p-button label="Cancelar" [raised]="true" severity="danger" (click)="MNuevaD=false" size="small"></p-button>
+    </div>
+  </ng-template>
+</p-dialog>
