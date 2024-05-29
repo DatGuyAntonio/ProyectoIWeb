@@ -23,7 +23,7 @@ RUN ng build
 FROM nginx:alpine
 
 # Copiar la aplicación Angular compilada desde la etapa anterior
-COPY --from=build C:\Users\sotol.DESKTOP-16IB21S\OneDrive\Escritorio\ProyectoCombo\pWeb\dist /usr/share/nginx/html
+COPY  --from=build /app/dist/p-web /usr/share/nginx/html
 
 # Exponer el puerto 4200
 EXPOSE 4200
