@@ -37,7 +37,7 @@ export class UsuariosComponent {
   { header: 'Direccion', field: 'direccion' },
  
 ];
-
+rolSelecionado: string | undefined;
 dir:any;
 constructor(private confirmationService: ConfirmationService, private messageService: MessageService, private clienteService: ClienteService) {}
   ngOnInit() {
@@ -143,6 +143,15 @@ confirm() {
 
  }
 
+ onCategoriaSeleccionada(event: any) {
+  this.rolSelecionado = event.value.value;
+  console.log(this.rolSelecionado);
+}
 
+  cambiarRol(){
+    this.onCategoriaSeleccionada
+    console.log(this.rolSelecionado);
+    console.log(this.rowData);
+  }
 
 }

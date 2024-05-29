@@ -47,7 +47,7 @@
 
 
 
-<p-dialog header="Crear Cuenta" [(visible)]="visible" [modal]="true" [style]="{ width: '60vw', height: '100rem' }" [draggable]="false" [resizable]="false" [closable]="false">
+<p-dialog header="Editar rol" [(visible)]="visible" [modal]="true" [style]="{ width: '60vw', height: '100rem' }" [draggable]="false" [resizable]="false" [closable]="false">
 
     <div class="flex flex-column gap-2">
       <label for="username">Nombre:</label>
@@ -66,7 +66,14 @@
       </div>
     <div>
         <label>Rol:</label>
-        <p-dropdown [options]="cities"  optionLabel="label" [showClear]="true" placeholder="Seleciona el rol" value="rowData?.rol" ></p-dropdown>
+        <p-dropdown 
+        [options]="cities" 
+        optionLabel="label" 
+        [showClear]="true" 
+        placeholder="Selecciona el rol" 
+        [(ngModel)]="rolSelecionado"
+        (onChange)="onCategoriaSeleccionada($event)">
+      </p-dropdown>
 
     </div>
     <div class="flex flex-column gap-2">
@@ -94,7 +101,7 @@
     <ng-template pTemplate="footer">
       <div class="botones-fotter">
         <p-button class="create-account-button" label="guardar Cambio" [raised]="true" severity="success"
-          size="small"></p-button>
+          size="small" (click)="cambiarRol()"></p-button>
         <p-button label="Cancelar" [raised]="true" severity="danger" (click)="visible=false" size="small"></p-button>
       </div>
     </ng-template>
