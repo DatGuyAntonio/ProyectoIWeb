@@ -28,4 +28,4 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: datguyantonio/ProyectoIWeb:latest
+          tags: datguyantonio/Proyectoiweb:latest
